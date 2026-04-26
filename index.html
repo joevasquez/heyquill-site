@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quill — Voice to text for Mac &amp; iPhone</title>
+    <meta name="description" content="A free dictation and voice-notes suite for Apple devices. On-device transcription, optional AI clean-up. macOS menu bar app + iOS companion.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Quill — Voice to text for Mac &amp; iPhone">
+    <meta property="og:description" content="A free, privacy-first dictation suite for Apple devices. On-device transcription, optional AI clean-up.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://heyquill.ai">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://kit.fontawesome.com/b7dc222f53.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header class="site-nav">
+    <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+            <span class="site-nav-icon"><i class="fas fa-feather-alt"></i></span>
+            <span>Quill</span>
+        </a>
+        <nav class="site-nav-links">
+            <a href="#features">Features</a>
+            <a href="#privacy">Privacy</a>
+            <a href="#download">Download</a>
+            <a href="https://github.com/joevasquez/Hex" target="_blank" rel="noopener" class="site-nav-github">
+                <i class="fab fa-github"></i>
+            </a>
+        </nav>
+    </div>
+</header>
+
+<div class="quill-page">
+
+    <!-- Hero -->
+    <section class="quill-hero">
+        <div class="quill-hero-inner">
+            <div class="quill-icon-wrap">
+                <i class="fas fa-feather-alt"></i>
+            </div>
+            <h1>Quill</h1>
+            <p class="quill-tagline">Voice to text, on your Mac and iPhone, on your terms.</p>
+            <p class="quill-one-liner">
+                A free dictation and voice-notes suite for Apple devices — a menu bar app for macOS and
+                a companion iOS app. Transcribed on-device, with optional AI clean-up.
+            </p>
+            <div class="quill-cta-row">
+                <a href="https://github.com/joevasquez/Hex/releases/latest/download/Hex-latest.dmg" class="quill-btn quill-btn-primary">
+                    <i class="fas fa-laptop"></i> Download for Mac
+                </a>
+                <a href="https://testflight.apple.com/join/RfDVsVs3" class="quill-btn quill-btn-primary" target="_blank" rel="noopener">
+                    <i class="fas fa-mobile-alt"></i> iPhone TestFlight beta
+                </a>
+                <a href="https://github.com/joevasquez/Hex/releases" class="quill-btn quill-btn-ghost" target="_blank" rel="noopener">
+                    <i class="fas fa-file-alt"></i> Release notes
+                </a>
+            </div>
+            <div class="quill-requirements-line">
+                macOS 14+ · iOS 26.2+ · Free &amp; open source
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero paragraph / intro -->
+    <section class="quill-section">
+        <h2>Dictate anywhere. Locally. Instantly.</h2>
+        <p>
+            Quill is a privacy-first voice-to-text suite for Apple devices. On your Mac, hold a hotkey
+            to dictate into any app. On your iPhone, hit record to build running voice notes. Either
+            way, transcription happens locally — by state-of-the-art speech models on-device. No audio
+            ever leaves your Mac or iPhone.
+        </p>
+        <p>
+            Optional AI clean-up can polish your raw dictation into clean prose, structured notes,
+            a professional email, or code comments — using your own OpenAI or Anthropic API key.
+            Available in both the Mac and iOS apps.
+        </p>
+    </section>
+
+    <!-- About block -->
+    <section class="quill-section quill-section-alt">
+        <h2>About</h2>
+        <p>
+            Quill is my take on what a dictation app should be: fast, local, keyboard-driven, and
+            respectful of what you're saying. What started on the Mac now has a companion iPhone
+            app for capturing voice notes on the go.
+        </p>
+        <p>
+            On the Mac, Quill lives in your menu bar. You press your hotkey, speak, release, and the
+            transcript gets pasted directly into the app you're already using — Messages, Mail, a
+            code editor, a terminal, wherever. On iPhone, Quill is a voice-notes app: hit record,
+            speak, and each clip stitches into a running note. On both platforms, transcription runs
+            entirely on-device using Apple's Core ML with Parakeet (multilingual, macOS) or Whisper
+            (macOS + iOS). Your audio never touches a cloud server.
+        </p>
+        <p>
+            If you want more than a raw transcript, Quill — on either platform — can route the text
+            through OpenAI or Anthropic in one of six modes: Clean, Email, Notes, Message, Code, or
+            Off. On the Mac you can also tell Quill to pick the right mode automatically based on
+            which app is in front. You bring your own API key; the app just plumbs the request.
+        </p>
+    </section>
+
+    <!-- Capabilities: Mac -->
+    <section class="quill-section" id="features">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:6px;">
+            <span style="background:#0b0c10; color:#fff; font-size:0.7em; font-weight:600; letter-spacing:1px; padding:4px 10px; border-radius:999px; text-transform:uppercase;">
+                <i class="fas fa-laptop"></i> macOS
+            </span>
+        </div>
+        <h2>What Quill for Mac does</h2>
+        <div class="quill-capabilities">
+            <div class="quill-capability">
+                <div class="quill-capability-icon"><i class="fas fa-microphone-alt"></i></div>
+                <h3>On-device transcription</h3>
+                <ul>
+                    <li>Parakeet TDT v3 (multilingual, default) via FluidAudio</li>
+                    <li>Whisper Tiny / Base / Large v3 via WhisperKit</li>
+                    <li>Core ML accelerated — no network round-trip, no server cost</li>
+                </ul>
+            </div>
+            <div class="quill-capability">
+                <div class="quill-capability-icon"><i class="fas fa-keyboard"></i></div>
+                <h3>Hotkey-driven workflow</h3>
+                <ul>
+                    <li>Press-and-hold or double-tap-to-lock modes</li>
+                    <li>Modifier-only hotkeys (Fn, Option, etc.) with safety thresholds</li>
+                    <li>Automatic paste into the frontmost app — no window switch</li>
+                </ul>
+            </div>
+            <div class="quill-capability">
+                <div class="quill-capability-icon"><i class="fas fa-magic"></i></div>
+                <h3>Optional AI post-processing</h3>
+                <ul>
+                    <li>Six modes: Clean, Email, Notes, Message, Code, or Off</li>
+                    <li>Context-aware mode selection per frontmost app</li>
+                    <li>Bring your own OpenAI / Anthropic key — stored in Keychain</li>
+                    <li>Inline voice commands ("new paragraph", "period", "question mark")</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- iOS companion -->
+    <section class="quill-section quill-section-alt">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:6px;">
+            <span style="background:#228be6; color:#fff; font-size:0.7em; font-weight:600; letter-spacing:1px; padding:4px 10px; border-radius:999px; text-transform:uppercase;">
+                <i class="fab fa-apple"></i> iOS · TestFlight beta
+            </span>
+        </div>
+        <h2>What Quill for iPhone does</h2>
+        <p>
+            Quill iOS is the mobile companion to the Mac app. It's not a port — it's a voice-note app
+            built for the moments you can't reach a keyboard. Hit record, speak, release, and the
+            transcript appends to whatever note you're building. Record a conference talk in sections
+            and see the whole note grow. Same six AI modes as the desktop app (Clean, Email, Notes,
+            Message, Code, Off). Same on-device transcription — your voice never touches a cloud server.
+        </p>
+
+        <div class="quill-capabilities">
+            <div class="quill-capability">
+                <div class="quill-capability-icon"><i class="fas fa-microphone-alt"></i></div>
+                <h3>On-device transcription</h3>
+                <ul>
+                    <li>Runs Whisper locally on your iPhone via Core ML</li>
+                    <li>Live partial transcript via Apple's SFSpeechRecognizer, replaced by final Whisper output on stop</li>
+                    <li>No audio ever leaves the device for transcription</li>
+                </ul>
+            </div>
+            <div class="quill-capability">
+                <div class="quill-capability-icon"><i class="fas fa-layer-group"></i></div>
+                <h3>Notes that stitch together</h3>
+                <ul>
+                    <li>Each recording appends to your active note with a paragraph break</li>
+                    <li>Rough starting location tagged (neighborhood, not exact address)</li>
+                    <li>Full list of all notes — swap, delete, swipe back in time</li>
+                </ul>
+            </div>
+            <div class="quill-capability">
+                <div class="quill-capability-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Built for speed</h3>
+                <ul>
+                    <li>Custom record button with a level-reactive glow</li>
+                    <li>Haptics on start / stop / copy / mode change</li>
+                    <li>Green checkmark animation on copy</li>
+                    <li>iOS share sheet — Messages, Mail, Notes, Slack, anywhere</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="quill-testflight-card">
+            <div style="flex:1; min-width:240px;">
+                <strong style="color:#0b0c10;">Quill iOS is in TestFlight public beta.</strong>
+                <div style="color:#5a6473; font-size:0.92em; margin-top:4px;">
+                    Requires the TestFlight app and iOS 26.2 or later. Builds rotate every 90 days — the link stays the same.
+                </div>
+            </div>
+            <a href="https://testflight.apple.com/join/RfDVsVs3" class="quill-platform-btn quill-platform-btn-primary" target="_blank" rel="noopener">
+                <i class="fab fa-apple"></i> Join the TestFlight beta
+            </a>
+        </div>
+    </section>
+
+    <!-- Privacy -->
+    <section class="quill-privacy" id="privacy">
+        <div class="quill-privacy-inner">
+            <span class="quill-privacy-badge"><i class="fas fa-lock"></i> Privacy</span>
+            <h2>Your audio never leaves your device.</h2>
+            <p>
+                On both Mac and iPhone, transcription runs locally on-device using Core ML. If you
+                enable AI clean-up, only the transcribed text is sent to OpenAI or Anthropic — using
+                your own API key, stored in Keychain — and only after you've opted in.
+            </p>
+        </div>
+    </section>
+
+    <!-- Requirements -->
+    <section class="quill-section">
+        <h2>Requirements</h2>
+
+        <h3 class="quill-req-head">
+            <i class="fas fa-laptop" style="color:#228be6; margin-right:8px;"></i>Quill for Mac
+        </h3>
+        <ul class="quill-req-list">
+            <li>macOS 14 (Sonoma) or later, Apple Silicon or Intel</li>
+            <li>~75 MB to ~1.5 GB of disk for your chosen speech model (downloaded on first use)</li>
+            <li>Microphone, Accessibility, and Input Monitoring permissions (standard for any dictation app)</li>
+        </ul>
+
+        <h3 class="quill-req-head" style="margin-top:24px;">
+            <i class="fas fa-mobile-alt" style="color:#228be6; margin-right:8px;"></i>Quill for iPhone
+        </h3>
+        <ul class="quill-req-list">
+            <li>iPhone or iPad running iOS 26.2 or later</li>
+            <li>TestFlight app installed (currently in public beta)</li>
+            <li>Microphone, Speech Recognition, and Location (optional) permissions</li>
+        </ul>
+    </section>
+
+    <!-- Download CTA -->
+    <section class="quill-download" id="download">
+        <h2>Download</h2>
+        <p>Pick your platform. Both are free.</p>
+
+        <div class="quill-platforms">
+            <div class="quill-platform-card quill-platform-mac">
+                <div class="quill-platform-head">
+                    <div class="quill-platform-icon"><i class="fas fa-laptop"></i></div>
+                    <div>
+                        <div class="quill-platform-tag">macOS</div>
+                        <h3>Quill for Mac</h3>
+                    </div>
+                </div>
+                <p>On-device dictation as a menu bar app. Hold a hotkey, speak, and the transcript pastes into whatever app you're in.</p>
+                <div class="quill-platform-meta">macOS 14 (Sonoma) or later · Apple Silicon or Intel</div>
+                <div class="quill-platform-actions">
+                    <a href="https://github.com/joevasquez/Hex/releases/latest/download/Hex-latest.dmg" class="quill-platform-btn quill-platform-btn-primary">
+                        <i class="fab fa-apple"></i> Download for macOS
+                    </a>
+                    <a href="https://github.com/joevasquez/Hex/releases" class="quill-platform-btn quill-platform-btn-secondary" target="_blank" rel="noopener">
+                        <i class="fas fa-file-alt"></i> Release notes
+                    </a>
+                </div>
+            </div>
+
+            <div class="quill-platform-card quill-platform-ios">
+                <div class="quill-platform-head">
+                    <div class="quill-platform-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div>
+                        <div class="quill-platform-tag">iOS · Beta</div>
+                        <h3>Quill for iPhone</h3>
+                    </div>
+                </div>
+                <p>Voice notes with on-device Whisper transcription and optional AI clean-up. Currently in TestFlight public beta.</p>
+                <div class="quill-platform-meta">iOS 26.2 or later · TestFlight app required · Builds rotate every 90 days</div>
+                <div class="quill-platform-actions">
+                    <a href="https://testflight.apple.com/join/RfDVsVs3" class="quill-platform-btn quill-platform-btn-primary" target="_blank" rel="noopener">
+                        <i class="fab fa-apple"></i> Join the TestFlight beta
+                    </a>
+                    <a href="https://github.com/joevasquez/Hex" class="quill-platform-btn quill-platform-btn-secondary" target="_blank" rel="noopener">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<footer class="site-footer">
+    <div class="site-footer-inner">
+        <div class="site-footer-brand">
+            <span class="site-nav-icon"><i class="fas fa-feather-alt"></i></span>
+            <span>Quill</span>
+        </div>
+        <div class="site-footer-meta">
+            Built by <a href="https://joevasquez.com" target="_blank" rel="noopener">Joe Vasquez</a> ·
+            <a href="https://github.com/joevasquez/Hex" target="_blank" rel="noopener">Source on GitHub</a> ·
+            Open source
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
