@@ -205,16 +205,8 @@ a { color: inherit; }
     max-width: none;
     padding: 80px 24px;
 }
-/* Higher-specificity selectors so the per-element rules
-   (.quill-section p, .quill-section h2) don't win and leave
-   children stretched to the parent's full width. */
-.quill-section.quill-section-alt > * {
-    max-width: 880px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.quill-section.quill-section-alt > h2,
-.quill-section.quill-section-alt > p {
+/* Inner wrapper centers content within the full-width alt section. */
+.quill-section-inner {
     max-width: 880px;
     margin-left: auto;
     margin-right: auto;

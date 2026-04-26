@@ -90,26 +90,28 @@
 
     <!-- About block -->
     <section class="quill-section quill-section-alt">
-        <h2>About</h2>
-        <p>
-            Quill is my take on what a dictation app should be: fast, local, keyboard-driven, and
-            respectful of what you're saying. What started on the Mac now has a companion iPhone
-            app for capturing voice notes on the go.
-        </p>
-        <p>
-            On the Mac, Quill lives in your menu bar. You press your hotkey, speak, release, and the
-            transcript gets pasted directly into the app you're already using — Messages, Mail, a
-            code editor, a terminal, wherever. On iPhone, Quill is a voice-notes app: hit record,
-            speak, and each clip stitches into a running note. On both platforms, transcription runs
-            entirely on-device using Apple's Core ML with Parakeet (multilingual, macOS) or Whisper
-            (macOS + iOS). Your audio never touches a cloud server.
-        </p>
-        <p>
-            If you want more than a raw transcript, Quill — on either platform — can route the text
-            through OpenAI or Anthropic in one of six modes: Clean, Email, Notes, Message, Code, or
-            Off. On the Mac you can also tell Quill to pick the right mode automatically based on
-            which app is in front. You bring your own API key; the app just plumbs the request.
-        </p>
+        <div class="quill-section-inner">
+            <h2>About</h2>
+            <p>
+                Quill is my take on what a dictation app should be: fast, local, keyboard-driven, and
+                respectful of what you're saying. What started on the Mac now has a companion iPhone
+                app for capturing voice notes on the go.
+            </p>
+            <p>
+                On the Mac, Quill lives in your menu bar. You press your hotkey, speak, release, and the
+                transcript gets pasted directly into the app you're already using — Messages, Mail, a
+                code editor, a terminal, wherever. On iPhone, Quill is a voice-notes app: hit record,
+                speak, and each clip stitches into a running note. On both platforms, transcription runs
+                entirely on-device using Apple's Core ML with Parakeet (multilingual, macOS) or Whisper
+                (macOS + iOS). Your audio never touches a cloud server.
+            </p>
+            <p>
+                If you want more than a raw transcript, Quill — on either platform — can route the text
+                through OpenAI or Anthropic in one of six modes: Clean, Email, Notes, Message, Code, or
+                Off. On the Mac you can also tell Quill to pick the right mode automatically based on
+                which app is in front. You bring your own API key; the app just plumbs the request.
+            </p>
+        </div>
     </section>
 
     <!-- Capabilities: Mac -->
@@ -154,6 +156,7 @@
 
     <!-- iOS companion -->
     <section class="quill-section quill-section-alt">
+        <div class="quill-section-inner">
         <div style="display:flex; align-items:center; gap:14px; margin-bottom:6px;">
             <span style="background:#228be6; color:#fff; font-size:0.7em; font-weight:600; letter-spacing:1px; padding:4px 10px; border-radius:999px; text-transform:uppercase;">
                 <i class="fab fa-apple"></i> iOS · TestFlight beta
@@ -209,6 +212,7 @@
             <a href="https://testflight.apple.com/join/RfDVsVs3" class="quill-platform-btn quill-platform-btn-primary" target="_blank" rel="noopener">
                 <i class="fab fa-apple"></i> Join the TestFlight beta
             </a>
+        </div>
         </div>
     </section>
 
