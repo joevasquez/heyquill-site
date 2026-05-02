@@ -26,9 +26,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/styles.css?v=cc4b6501">
+    <link rel="stylesheet" href="/styles.css?v=cbe3ca20">
     <script src="https://kit.fontawesome.com/b7dc222f53.js" crossorigin="anonymous"></script>
-    <script src="/app.js?v=85af8c34" defer></script>
+    <script src="/app.js?v=669ff1ee" defer></script>
 </head>
 <body>
 
@@ -261,74 +261,74 @@
         <p class="lede">Most tools stop at transcription. Quill keeps going — into edits, into actions, into your other apps.</p>
     </div>
 
-    <div class="compare-tabs" role="tablist" aria-label="Compare Quill to other voice tools">
-        <button class="compare-tab" role="tab" data-tab="quill" aria-selected="true">Quill</button>
-        <button class="compare-tab" role="tab" data-tab="apple" aria-selected="false">Apple Dictation</button>
-        <button class="compare-tab" role="tab" data-tab="wispr" aria-selected="false">Wispr Flow</button>
-        <button class="compare-tab" role="tab" data-tab="superwhisper" aria-selected="false">SuperWhisper</button>
-        <button class="compare-tab" role="tab" data-tab="chatgpt" aria-selected="false">ChatGPT Voice</button>
-    </div>
-
-    <div class="compare-panels">
-        <div class="compare-panel" data-panel="quill" data-active>
-            <p class="compare-summary">A voice-first command layer for your Mac and iPhone. Transcribe locally, transform selected text, and route what you say to the right app — all without leaving your flow.</p>
-            <ul class="compare-list">
-                <li data-yes>On-device transcription</li>
-                <li data-yes>AI cleanup &amp; rewriting</li>
-                <li data-yes>Edit any selected text in any app</li>
-                <li data-yes>Auto-route to Reminders, Calendar, Mail, Todoist</li>
-                <li data-yes>Mac &amp; iPhone</li>
-                <li data-yes>Free</li>
-            </ul>
-        </div>
-
-        <div class="compare-panel" data-panel="apple">
-            <p class="compare-summary">Apple Dictation is built into the OS. It's a great raw transcriber and works everywhere — but it stops there. No cleanup, no edits, no routing to other apps.</p>
-            <ul class="compare-list">
-                <li data-yes>On-device transcription</li>
-                <li data-no>AI cleanup &amp; rewriting</li>
-                <li data-no>Edit any selected text in any app</li>
-                <li data-no>Auto-route to Reminders, Calendar, Mail, Todoist</li>
-                <li data-yes>Mac &amp; iPhone</li>
-                <li data-yes>Free</li>
-            </ul>
-        </div>
-
-        <div class="compare-panel" data-panel="wispr">
-            <p class="compare-summary">Wispr Flow is a polished dictation app with AI cleanup. Mac-focused. Doesn't transform selected text in place and doesn't route what you say into other apps.</p>
-            <ul class="compare-list">
-                <li data-partial>Cloud transcription (some on-device options)</li>
-                <li data-yes>AI cleanup &amp; rewriting</li>
-                <li data-no>Edit any selected text in any app</li>
-                <li data-no>Auto-route to Reminders, Calendar, Mail, Todoist</li>
-                <li data-partial>Mac (iPhone limited)</li>
-                <li data-no>Paid subscription</li>
-            </ul>
-        </div>
-
-        <div class="compare-panel" data-panel="superwhisper">
-            <p class="compare-summary">SuperWhisper is a strong on-device dictation app with optional AI modes. Great at transcription and cleanup; doesn't ship Quill's selected-text Edit or app-routing Action.</p>
-            <ul class="compare-list">
-                <li data-yes>On-device transcription</li>
-                <li data-yes>AI cleanup &amp; rewriting</li>
-                <li data-no>Edit any selected text in any app</li>
-                <li data-no>Auto-route to Reminders, Calendar, Mail, Todoist</li>
-                <li data-partial>Mac (iPhone limited)</li>
-                <li data-no>Paid pro tier</li>
-            </ul>
-        </div>
-
-        <div class="compare-panel" data-panel="chatgpt">
-            <p class="compare-summary">ChatGPT Voice is a conversational interface to a chatbot. Great for back-and-forth thinking; not designed to capture text into the app you're using or take action in your other apps.</p>
-            <ul class="compare-list">
-                <li data-no>On-device transcription (cloud)</li>
-                <li data-yes>AI cleanup &amp; rewriting</li>
-                <li data-no>Edit any selected text in any app</li>
-                <li data-no>Auto-route to Reminders, Calendar, Mail, Todoist</li>
-                <li data-yes>Mac &amp; iPhone</li>
-                <li data-partial>Free tier with limits</li>
-            </ul>
-        </div>
+    <div class="compare-table-wrap">
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th scope="col" class="feature-col">Feature</th>
+                    <th scope="col" class="quill-col">Quill</th>
+                    <th scope="col">Apple<br>Dictation</th>
+                    <th scope="col">Wispr<br>Flow</th>
+                    <th scope="col">Super<br>Whisper</th>
+                    <th scope="col">ChatGPT<br>Voice</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">On-device transcription</th>
+                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-partial><span aria-label="Partial">●</span></td>
+                    <td data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">AI cleanup &amp; rewriting</th>
+                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                    <td data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-yes><span aria-label="Yes">✓</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Edit any selected text, in any app</th>
+                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Auto-route to Reminders, Calendar, Mail, Todoist</th>
+                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Mac &amp; iPhone</th>
+                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-partial><span aria-label="Partial">●</span></td>
+                    <td data-partial><span aria-label="Partial">●</span></td>
+                    <td data-yes><span aria-label="Yes">✓</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Free</th>
+                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-yes><span aria-label="Yes">✓</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                    <td data-no><span aria-label="No">–</span></td>
+                    <td data-partial><span aria-label="Partial">●</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="compare-legend">
+            <span><span class="legend-mark" data-yes>✓</span> Yes</span>
+            <span><span class="legend-mark" data-partial>●</span> Partial</span>
+            <span><span class="legend-mark" data-no>–</span> No</span>
+        </p>
     </div>
 </section>
 

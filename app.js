@@ -175,42 +175,7 @@
         updateIcon();
     }
 
-    // ============ 4. Comparison tabs ============
-    const tabs = Array.from(document.querySelectorAll('.compare-tab'));
-    const panels = Array.from(document.querySelectorAll('.compare-panel'));
-
-    function activateTab(name, focusTab = false) {
-        tabs.forEach(t => t.setAttribute('aria-selected', t.dataset.tab === name ? 'true' : 'false'));
-        panels.forEach(p => {
-            if (p.dataset.panel === name) p.setAttribute('data-active', '');
-            else p.removeAttribute('data-active');
-        });
-        if (focusTab) {
-            const t = tabs.find(t => t.dataset.tab === name);
-            if (t) t.focus();
-        }
-    }
-
-    tabs.forEach((tab, i) => {
-        tab.addEventListener('click', () => activateTab(tab.dataset.tab));
-        tab.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
-                e.preventDefault();
-                activateTab(tabs[(i + 1) % tabs.length].dataset.tab, true);
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                activateTab(tabs[(i - 1 + tabs.length) % tabs.length].dataset.tab, true);
-            } else if (e.key === 'Home') {
-                e.preventDefault();
-                activateTab(tabs[0].dataset.tab, true);
-            } else if (e.key === 'End') {
-                e.preventDefault();
-                activateTab(tabs[tabs.length - 1].dataset.tab, true);
-            }
-        });
-    });
-
-    // ============ 5. Scroll-reveal for loop section ============
+    // ============ 4. Scroll-reveal for loop section ============
     const loopGrid = document.querySelector('.loop-grid');
     if (loopGrid) {
         const io3 = new IntersectionObserver((entries) => {
