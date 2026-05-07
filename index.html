@@ -1,460 +1,987 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quill — Dictate. Edit. Act.</title>
-    <meta name="description" content="Voice-first AI for your Mac and iPhone. Speak to write. Highlight to transform. Talk to act.">
-    <meta name="theme-color" content="#2E1F73">
+<meta charset="utf-8" />
+<title>Quill — Voice-first AI for Mac</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Voice-first AI for your Mac. Speak to write. Highlight to transform. Talk to act.">
+<meta name="theme-color" content="#7c3aed">
 
-    <meta property="og:title" content="Quill — Dictate. Edit. Act.">
-    <meta property="og:description" content="Voice-first AI for your Mac and iPhone. Speak to write. Highlight to transform. Talk to act.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://heyquill.ai">
-    <meta property="og:image" content="https://heyquill.ai/assets/og-image.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Quill — Dictate. Edit. Act.">
-    <meta name="twitter:description" content="Voice-first AI for your Mac and iPhone.">
-    <meta name="twitter:image" content="https://heyquill.ai/assets/og-image.jpg">
+<meta property="og:title" content="Quill — Voice-first AI for Mac">
+<meta property="og:description" content="Voice-first AI for your Mac. Speak to write. Highlight to transform. Talk to act.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://heyquill.ai">
+<meta property="og:image" content="https://heyquill.ai/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quill — Voice-first AI for Mac">
+<meta name="twitter:description" content="Voice-first AI for your Mac.">
+<meta name="twitter:image" content="https://heyquill.ai/assets/og-image.jpg">
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="apple-touch-icon" href="/assets/quill-icon.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/quill-icon.png">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:           #f4f1ec;
+    --bg-elev:      #fbf9f5;
+    --bg-card:      #ffffff;
+    --ink:          #1c1c1e;
+    --ink-soft:     #4b4951;
+    --ink-mute:     #807d86;
+    --line:         rgba(28,28,30,0.10);
+    --line-strong:  rgba(28,28,30,0.18);
 
-    <link rel="stylesheet" href="/styles.css?v=cbe3ca20">
-    <script src="https://kit.fontawesome.com/b7dc222f53.js" crossorigin="anonymous"></script>
-    <script src="/app.js?v=669ff1ee" defer></script>
+    --p-50:  #f5f0ff;
+    --p-100: #ebdffd;
+    --p-200: #d4baff;
+    --p-300: #b48dff;
+    --p-400: #9461ff;
+    --p-500: #7c3aed;
+    --p-600: #6d28d9;
+    --p-700: #5b21b6;
+
+    --dark:      #1c1c1e;
+
+    --serif: "Source Serif 4", Georgia, ui-serif, serif;
+    --sans:  "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --mono:  "SF Mono", ui-monospace, Menlo, monospace;
+
+    --shadow-sm: 0 1px 2px rgba(28,28,30,0.04), 0 0 0 0.5px rgba(28,28,30,0.06);
+    --shadow-md: 0 8px 24px rgba(28,28,30,0.08), 0 0 0 0.5px rgba(28,28,30,0.06);
+    --shadow-lg: 0 24px 60px rgba(28,28,30,0.14), 0 0 0 0.5px rgba(28,28,30,0.06);
+    --shadow-purple: 0 18px 44px rgba(124,58,237,0.30);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  .col { max-width: 1200px; padding: 0 32px; margin: 0 auto; }
+
+  /* Floating pill nav */
+  .nav-wrap {
+    position: sticky; top: 16px; z-index: 50;
+    display: flex; justify-content: center;
+    padding: 0 16px;
+    pointer-events: none;
+  }
+  .nav {
+    pointer-events: auto;
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px 6px 6px 16px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: var(--shadow-md);
+  }
+  .brand { display: flex; align-items: center; gap: 8px; padding: 4px 12px 4px 0; text-decoration: none; color: var(--ink); border-right: 1px solid var(--line); margin-right: 6px; }
+  .brand-mark {
+    width: 26px; height: 26px; border-radius: 7px;
+    background: linear-gradient(180deg, var(--p-400), var(--p-600));
+    box-shadow: 0 3px 10px rgba(124,58,237,0.30), inset 0 1px 0 rgba(255,255,255,0.25);
+    display: grid; place-items: center;
+  }
+  .brand-mark svg { width: 15px; height: 15px; color: white; }
+  .brand-word { font-family: var(--serif); font-style: italic; font-size: 19px; font-weight: 500; letter-spacing: -0.01em; }
+  .nav a.lnk { padding: 8px 14px; font-size: 13.5px; font-weight: 500; color: var(--ink-soft); text-decoration: none; border-radius: 999px; transition: background 0.12s, color 0.12s; }
+  .nav a.lnk:hover { background: rgba(28,28,30,0.05); color: var(--ink); }
+  .nav .cta {
+    background: linear-gradient(180deg, var(--p-500), var(--p-600));
+    color: white; padding: 9px 18px; border-radius: 999px;
+    font-size: 13.5px; font-weight: 600; text-decoration: none;
+    box-shadow: 0 4px 12px rgba(124,58,237,0.30), inset 0 1px 0 rgba(255,255,255,0.20);
+    margin-left: 6px;
+  }
+  .nav .cta:hover { transform: translateY(-1px); }
+
+  /* === Hero: wide centered, HUD below === */
+  .hero { padding: 70px 0 90px; text-align: center; position: relative; }
+  .hero::before {
+    content: ""; position: absolute; left: 50%; top: 80px;
+    width: 1100px; height: 700px; transform: translateX(-50%);
+    background:
+      radial-gradient(closest-side at 30% 40%, rgba(180,141,255,0.30), transparent 60%),
+      radial-gradient(closest-side at 70% 60%, rgba(124,58,237,0.18), transparent 60%);
+    pointer-events: none; z-index: -1;
+    filter: blur(20px);
+  }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 5px 12px 5px 5px; border-radius: 999px;
+    background: var(--bg-card); border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    font-size: 12px; font-weight: 600; color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+  .eyebrow .pip { background: var(--p-500); color: white; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; letter-spacing: 0.06em; }
+  .eyebrow .arrow { color: var(--p-500); margin-left: 2px; }
+
+  h1.head {
+    font-family: var(--serif);
+    font-size: clamp(60px, 8vw, 120px);
+    line-height: 0.94; letter-spacing: -0.025em;
+    font-weight: 500;
+    margin: 0 auto 28px;
+    max-width: 16ch;
+  }
+  h1.head em { font-style: italic; color: var(--p-600); font-weight: 400; }
+  h1.head .stop { color: var(--p-400); }
+
+  .sub { font-size: 20px; color: var(--ink-soft); max-width: 56ch; margin: 0 auto 36px; line-height: 1.45; }
+
+  .cta-row { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 14px 22px; border-radius: 999px;
+    font-size: 14.5px; font-weight: 600;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: transform 0.12s, box-shadow 0.15s, background 0.15s;
+  }
+  .btn-primary {
+    background: linear-gradient(180deg, var(--p-500), var(--p-600));
+    color: white;
+    box-shadow: 0 8px 22px rgba(124,58,237,0.34), inset 0 1px 0 rgba(255,255,255,0.20);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(124,58,237,0.42); }
+  .btn-secondary {
+    background: var(--bg-card); color: var(--ink);
+    border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  }
+  .btn-secondary:hover { background: white; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .btn-ghost { background: transparent; color: var(--ink-soft); padding: 14px 14px; }
+  .btn-ghost:hover { color: var(--ink); }
+
+  .meta { font-size: 13px; color: var(--ink-mute); }
+
+  /* HUD inline */
+  .hud-row {
+    margin: 60px auto 0;
+    max-width: 980px;
+    display: grid; grid-template-columns: 1fr 380px 1fr;
+    align-items: center; gap: 30px;
+  }
+  .hud-row .side { display: flex; flex-direction: column; gap: 12px; }
+  .hud-row .side.right { align-items: flex-start; }
+  .hud-row .side.left { align-items: flex-end; }
+  .float {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow-md);
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px;
+    text-align: left;
+    max-width: 260px;
+  }
+  .float .ic { width: 28px; height: 28px; border-radius: 8px; background: var(--p-500); color: white; display: grid; place-items: center; flex-shrink: 0; }
+  .float.amber .ic { background: linear-gradient(180deg, #ff9f0a, #d97706); }
+  .float .lab { font-size: 11px; color: var(--ink-mute); }
+  .float .ttl { font-weight: 600; }
+  .hud {
+    background: linear-gradient(180deg, var(--dark) 0%, #161618 100%);
+    border-radius: 22px;
+    padding: 18px 18px 16px;
+    color: white;
+    box-shadow: var(--shadow-purple), 0 0 0 0.5px rgba(255,255,255,0.08);
+    text-align: left;
+  }
+  .hud-top { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .hud-top .rec { width: 8px; height: 8px; border-radius: 50%; background: #ff453a; box-shadow: 0 0 10px #ff453a; animation: rec 1.4s ease-in-out infinite; }
+  @keyframes rec { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .hud-top .t { font-family: var(--mono); font-size: 12px; color: rgba(255,255,255,0.6); }
+  .hud-top .src {
+    margin-left: auto; font-size: 11px;
+    background: rgba(255,255,255,0.06);
+    padding: 3px 8px; border-radius: 6px;
+    color: rgba(255,255,255,0.7);
+    border: 0.5px solid rgba(255,255,255,0.1);
+  }
+  .hud .quote {
+    font-family: var(--serif); font-style: italic;
+    font-size: 19px; line-height: 1.35;
+    color: rgba(255,255,255,0.95);
+    padding: 8px 0 18px;
+    letter-spacing: -0.005em;
+  }
+  .hud .quote .typed { background: linear-gradient(180deg, transparent 60%, rgba(148,97,255,0.35) 60%); }
+  .hud .quote .caret { display: inline-block; width: 2px; height: 20px; vertical-align: middle; background: var(--p-300); margin-left: 2px; animation: blink 1s steps(2) infinite; }
+  @keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+  .hud-wave { display: flex; gap: 3px; align-items: center; height: 28px; padding-bottom: 2px; }
+  .hud-wave span { display: block; width: 3px; border-radius: 2px; background: var(--p-300); animation: wave 1.1s ease-in-out infinite; }
+  @keyframes wave { 0%,100% { transform: scaleY(0.4); opacity: 0.5; } 50% { transform: scaleY(1); opacity: 1; } }
+
+  /* === Social proof: light, integrated === */
+  .proof {
+    margin-top: 30px;
+    padding: 36px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .proof-row { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+  .proof-stats { display: flex; gap: 60px; flex-wrap: wrap; }
+  .proof-stat .num { font-family: var(--serif); font-size: 36px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; line-height: 1; }
+  .proof-stat .num em { font-style: italic; color: var(--p-600); }
+  .proof-stat .label { font-size: 11px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-top: 6px; }
+  .proof-rating { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+  .stars { display: flex; gap: 2px; color: #f59e0b; }
+  .proof-rating .label { font-size: 11px; color: var(--ink-mute); font-weight: 500; }
+
+  /* === Section base === */
+  section.s { padding: 110px 0; }
+  .sec-label { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--p-600); font-weight: 700; margin-bottom: 14px; text-align: center; }
+  h2.sec-title { font-family: var(--serif); font-size: clamp(40px, 5vw, 60px); line-height: 1.04; letter-spacing: -0.02em; font-weight: 500; margin: 0 auto 18px; max-width: 18ch; text-align: center; }
+  h2.sec-title em { font-style: italic; color: var(--p-600); }
+  .sec-sub { font-size: 18px; color: var(--ink-soft); max-width: 56ch; margin: 0 auto 64px; line-height: 1.5; text-align: center; }
+
+  /* === The Loop — three side-by-side === */
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .feat {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.18s, box-shadow 0.18s;
+    display: flex; flex-direction: column; gap: 14px;
+    position: relative; overflow: hidden;
+  }
+  .feat:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .feat .ord {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-mute);
+    letter-spacing: 0.1em;
+  }
+  .feat-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: linear-gradient(180deg, var(--p-50), white);
+    border: 1px solid var(--p-100);
+    color: var(--p-600); display: grid; place-items: center;
+    margin-bottom: 6px;
+  }
+  .feat h3 { font-family: var(--serif); font-size: 38px; font-weight: 500; letter-spacing: -0.015em; margin: 0; }
+  .feat .tags { display: flex; gap: 6px; }
+  .tag { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--ink-soft); text-transform: uppercase; }
+  .feat p { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
+  .feat .feat-foot {
+    margin-top: auto; padding-top: 18px;
+    border-top: 1px solid var(--line);
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--ink-mute);
+    font-family: var(--mono);
+  }
+  .feat .kbd {
+    background: var(--bg-elev); border: 1px solid var(--line);
+    padding: 2px 7px; border-radius: 5px;
+    font-size: 11px; color: var(--ink-soft);
+  }
+
+  /* === What's new — horizontal scroll-feel grid (3-up) === */
+  .new {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elev) 100%);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .new-wide {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .nc {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column; gap: 14px;
+    min-height: 460px;
+    transition: transform 0.18s, box-shadow 0.18s;
+    position: relative; overflow: hidden;
+  }
+  .nc:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .nc.featured {
+    background: linear-gradient(180deg, var(--p-500), var(--p-700));
+    color: white;
+    border-color: transparent;
+    box-shadow: var(--shadow-purple);
+  }
+  .nc.featured::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(255,255,255,0.18), transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(46,16,101,0.55), transparent 50%);
+    pointer-events: none;
+  }
+  .nc .pip {
+    align-self: flex-start; position: relative;
+    background: var(--p-50); color: var(--p-700);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    padding: 4px 10px; border-radius: 999px; text-transform: uppercase;
+  }
+  .nc.featured .pip { background: rgba(255,255,255,0.18); color: white; backdrop-filter: blur(8px); }
+  .nc h3 { position: relative; font-family: var(--serif); font-size: 26px; font-weight: 500; letter-spacing: -0.015em; margin: 0; line-height: 1.15; }
+  .nc.featured h3 { font-size: 32px; }
+  .nc p { position: relative; font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
+  .nc.featured p { color: rgba(255,255,255,0.85); }
+  .nc .visual { position: relative; margin-top: auto; display: flex; justify-content: center; align-items: flex-end; padding-top: 16px; }
+
+  /* iPhone keyboard mock */
+  .kb {
+    width: 240px;
+    background: linear-gradient(180deg, #0e0e10, #15151a);
+    border-radius: 16px 16px 6px 6px;
+    padding: 10px 8px 14px;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+    border: 0.5px solid rgba(255,255,255,0.1);
+  }
+  .kb .seg { display: flex; gap: 3px; background: rgba(255,255,255,0.06); padding: 3px; border-radius: 8px; margin-bottom: 10px; }
+  .kb .seg div { flex: 1; text-align: center; font-size: 9.5px; padding: 5px 0; color: rgba(255,255,255,0.55); font-weight: 600; border-radius: 6px; }
+  .kb .seg div.on { background: linear-gradient(180deg, var(--p-400), var(--p-600)); color: white; }
+  .kb .live { font-family: var(--serif); font-style: italic; font-size: 12px; color: white; line-height: 1.35; padding: 4px 6px 12px; min-height: 50px; }
+  .kb .live .car { display: inline-block; width: 2px; height: 12px; vertical-align: middle; background: var(--p-300); animation: blink 1s steps(2) infinite; margin-left: 2px; }
+  .kb .keys { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; }
+  .kb .keys span { height: 16px; background: rgba(255,255,255,0.08); border-radius: 4px; display: block; }
+
+  /* Agent chip */
+  .agent-chip { width: 100%; max-width: 280px; background: var(--bg-elev); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; }
+  .agent-chip .ic { width: 36px; height: 36px; border-radius: 9px; background: linear-gradient(180deg, var(--p-400), var(--p-600)); color: white; display: grid; place-items: center; flex-shrink: 0; }
+  .agent-chip .meta { font-size: 11px; color: var(--ink-mute); }
+  .agent-chip .title { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .agent-chip .check { width: 22px; height: 22px; border-radius: 50%; background: var(--p-500); color: white; display: grid; place-items: center; margin-left: auto; }
+
+  /* Chain steps */
+  .chain-vis { display: flex; flex-direction: column; gap: 6px; width: 100%; max-width: 280px; }
+  .chain-vis .step {
+    font-family: var(--mono); font-size: 11.5px;
+    background: var(--bg-elev); border: 1px solid var(--line);
+    border-left: 3px solid var(--p-500);
+    padding: 8px 10px; border-radius: 6px; color: var(--ink-soft);
+  }
+
+  /* === Try a prompt — window === */
+  .try-frame { background: var(--bg-card); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; box-shadow: var(--shadow-md); max-width: 1080px; margin: 0 auto; }
+  .try-bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--bg-elev); }
+  .try-bar .dots { display: flex; gap: 6px; }
+  .try-bar .dots span { width: 11px; height: 11px; border-radius: 50%; }
+  .try-bar .dots span:nth-child(1) { background: #ff5f57; }
+  .try-bar .dots span:nth-child(2) { background: #febc2e; }
+  .try-bar .dots span:nth-child(3) { background: #28c840; }
+  .try-bar .ttl { font-size: 12.5px; color: var(--ink-mute); margin-left: auto; font-family: var(--mono); }
+  .try-body { display: grid; grid-template-columns: 1fr 1.1fr; min-height: 440px; }
+  .try-prompts { padding: 24px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; background: var(--bg-elev); }
+  .try-prompts .lbl { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute); font-weight: 700; padding: 0 4px 8px; }
+  .pr { display: flex; align-items: center; gap: 10px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; padding: 11px 14px; font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--ink-soft); cursor: pointer; transition: all 0.12s; }
+  .pr:hover { background: white; box-shadow: var(--shadow-sm); color: var(--ink); }
+  .pr.active { background: white; border-color: var(--p-300); color: var(--ink); box-shadow: 0 0 0 4px rgba(124,58,237,0.10); }
+  .pr .mi { width: 14px; height: 14px; color: var(--p-500); flex-shrink: 0; }
+  .try-out { padding: 28px; display: flex; flex-direction: column; gap: 18px; }
+  .try-out .heard { font-size: 11px; color: var(--ink-mute); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .try-out .said { font-family: var(--mono); font-size: 13.5px; background: var(--p-50); color: var(--p-700); padding: 12px 14px; border-radius: 8px; border: 1px dashed var(--p-200); }
+  .try-out .arrow { color: var(--ink-mute); font-size: 18px; text-align: center; }
+  .try-out .out { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 12px; background: var(--bg-elev); border: 1px solid var(--line); }
+  .try-out .out .ic { width: 36px; height: 36px; border-radius: 8px; background: var(--p-500); color: white; display: grid; place-items: center; flex-shrink: 0; }
+  .try-out .out .lines { flex: 1; }
+  .try-out .out .a { font-size: 14px; font-weight: 600; }
+  .try-out .out .b { font-size: 12px; color: var(--ink-mute); margin-top: 2px; }
+  .try-out .out .ck { width: 24px; height: 24px; border-radius: 50%; background: var(--p-500); color: white; display: grid; place-items: center; }
+  .try-out .conf { font-size: 12px; color: var(--ink-mute); display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: var(--bg-elev); border-radius: 8px; }
+  .try-out .conf .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--p-500); }
+
+  /* === Testimonials === */
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .testi { background: var(--bg-card); border: 1px solid var(--line); border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 18px; box-shadow: var(--shadow-sm); }
+  .testi blockquote { margin: 0; font-family: var(--serif); font-size: 18px; line-height: 1.4; color: var(--ink); letter-spacing: -0.005em; }
+  .testi blockquote::before { content: "\201C"; font-family: var(--serif); color: var(--p-300); font-size: 44px; line-height: 0; vertical-align: -14px; margin-right: 4px; }
+  .testi .who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+  .testi .ava { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--p-300), var(--p-600)); color: white; display: grid; place-items: center; font-size: 13px; font-weight: 600; }
+  .testi .who .name { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .testi .who .role { font-size: 12px; color: var(--ink-mute); }
+
+  .featured-in { margin-top: 56px; text-align: center; }
+  .featured-in .lab { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute); font-weight: 700; margin-bottom: 18px; }
+  .logos { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; opacity: 0.7; }
+  .logos span { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink-soft); }
+  .logos .alt { font-family: var(--sans); font-style: normal; font-weight: 700; letter-spacing: -0.02em; }
+
+  /* === Final CTA === */
+  .final {
+    margin: 40px 0 80px;
+    background: var(--ink); color: white;
+    border-radius: 28px;
+    padding: 80px 56px;
+    position: relative; overflow: hidden;
+    text-align: center;
+  }
+  .final::before {
+    content: ""; position: absolute; left: 50%; top: -200px;
+    width: 800px; height: 800px; transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgba(148,97,255,0.45), transparent 70%);
+    pointer-events: none;
+  }
+  .final h2 { position: relative; font-family: var(--serif); font-weight: 500; font-size: clamp(40px, 5vw, 60px); line-height: 1.05; letter-spacing: -0.02em; margin: 0 auto 14px; max-width: 16ch; }
+  .final h2 em { font-style: italic; color: var(--p-300); }
+  .final p { position: relative; color: rgba(255,255,255,0.7); font-size: 18px; margin: 0 auto 32px; max-width: 50ch; }
+  .final .cta-row { position: relative; }
+  .final .btn-secondary { background: rgba(255,255,255,0.08); color: white; border-color: rgba(255,255,255,0.14); }
+  .final .btn-secondary:hover { background: rgba(255,255,255,0.14); }
+  .final .meta { position: relative; color: rgba(255,255,255,0.55); margin-top: 18px; }
+
+  footer {
+    padding: 28px 0 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    color: var(--ink-mute); font-size: 13px;
+    border-top: 1px solid var(--line);
+    flex-wrap: wrap; gap: 16px;
+  }
+  footer .links { display: flex; gap: 22px; }
+  footer a { color: var(--ink-mute); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+
+  /* === Pricing === */
+  .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 920px; margin: 0 auto; }
+  .price-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 36px 32px;
+    box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .price-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .price-card.featured {
+    border: 1px solid var(--p-200);
+    background: linear-gradient(180deg, white 0%, var(--p-50) 100%);
+    box-shadow: 0 18px 40px rgba(124,58,237,0.18), 0 0 0 0.5px var(--p-200);
+  }
+  .price-card.featured .price-glow {
+    position: absolute; right: -120px; top: -160px;
+    width: 380px; height: 380px;
+    background: radial-gradient(closest-side, rgba(148,97,255,0.30), transparent 70%);
+    pointer-events: none;
+  }
+  .price-pip {
+    align-self: flex-start; position: relative;
+    background: var(--bg-elev); color: var(--ink-soft);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    padding: 4px 10px; border-radius: 999px; text-transform: uppercase;
+    margin-bottom: 14px;
+    border: 1px solid var(--line);
+  }
+  .price-card.featured .price-pip { background: var(--p-500); color: white; border-color: transparent; }
+  .price-card h3 { position: relative; font-family: var(--serif); font-size: 30px; font-weight: 500; letter-spacing: -0.015em; margin: 0 0 8px; }
+  .price-desc { position: relative; font-size: 14px; color: var(--ink-soft); line-height: 1.5; margin: 0 0 22px; max-width: 38ch; }
+  .price-amount {
+    position: relative;
+    display: flex; align-items: baseline; gap: 8px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 22px;
+  }
+  .price-num { font-family: var(--serif); font-size: 56px; font-weight: 500; color: var(--ink); letter-spacing: -0.025em; line-height: 1; }
+  .price-card.featured .price-num { color: var(--p-700); }
+  .price-per { font-size: 14px; color: var(--ink-mute); font-weight: 500; }
+  .price-feats { position: relative; list-style: none; padding: 0; margin: 0 0 26px; display: flex; flex-direction: column; gap: 10px; }
+  .price-feats li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-soft); }
+  .price-feats li svg { color: var(--p-500); flex-shrink: 0; }
+  .price-cta { position: relative; justify-content: center; width: 100%; padding: 14px 22px; }
+  .price-foot { position: relative; margin-top: 12px; font-size: 12px; color: var(--ink-mute); text-align: center; }
+
+  @media (max-width: 980px) {
+    .hud-row { grid-template-columns: 1fr; max-width: 380px; }
+    .hud-row .side { flex-direction: row; align-items: center; justify-content: center; }
+    .trio, .new-wide, .testi-grid { grid-template-columns: 1fr; }
+    .nc { min-height: auto; }
+    .try-body { grid-template-columns: 1fr; }
+    .try-prompts { border-right: none; border-bottom: 1px solid var(--line); }
+    .nav a.lnk { display: none; }
+    .proof-rating { align-items: flex-start; }
+    .final { padding: 56px 28px; }
+  }
+  /* === Demo video === */
+  .video-section { padding: 40px 0 90px; }
+  .video-frame {
+    max-width: 1080px; margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+  }
+  .video-chrome {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-elev);
+  }
+  .video-chrome .dots { display: flex; gap: 6px; }
+  .video-chrome .dots span { width: 11px; height: 11px; border-radius: 50%; }
+  .video-chrome .dots span:nth-child(1) { background: #ff5f57; }
+  .video-chrome .dots span:nth-child(2) { background: #febc2e; }
+  .video-chrome .dots span:nth-child(3) { background: #28c840; }
+  .video-chrome .url {
+    margin: 0 auto; font-size: 12.5px; color: var(--ink-mute);
+    font-family: var(--mono);
+  }
+  .video-frame video { display: block; width: 100%; height: auto; background: #000; }
+  .video-mute {
+    position: absolute; right: 18px; bottom: 18px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(28,28,30,0.65); color: white; border: none;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    cursor: pointer; display: grid; place-items: center;
+    transition: background 0.15s, transform 0.12s;
+  }
+  .video-mute:hover { background: rgba(28,28,30,0.85); transform: scale(1.05); }
+  .video-caption {
+    text-align: center; margin: 18px auto 0;
+    font-size: 13px; color: var(--ink-mute);
+  }
+
+  @media (max-width: 760px) {
+    .price-grid { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
 
-<header class="nav">
-    <div class="nav-inner">
-        <a href="/" class="nav-brand" aria-label="Quill home">
-            <img src="/assets/quill-icon.png" alt="" class="nav-icon">
-            <span class="nav-wordmark">Quill</span>
-        </a>
-        <nav class="nav-links" aria-label="Primary">
-            <a href="#how">How it works</a>
-            <a href="#video">Demo</a>
-            <a href="#compare">Compare</a>
-            <a href="#privacy">Privacy</a>
-            <a href="#download" class="nav-cta">Download</a>
-        </nav>
-    </div>
-</header>
+<!-- Floating pill nav -->
+<div class="nav-wrap">
+  <nav class="nav">
+    <a href="#" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4 8 16l-4 4 4-4 12-12z"/><path d="M14 4h6v6"/></svg>
+      </span>
+      <span class="brand-word">Quill</span>
+    </a>
+    <a href="#loop" class="lnk">Features</a>
+    <a href="#video" class="lnk">Demo</a>
+    <a href="#new" class="lnk">What's new</a>
+    <a href="#try" class="lnk">Try it</a>
+    <a href="#pricing" class="lnk">Pricing</a>
+    <a href="#love" class="lnk">Praise</a>
+    <a href="#" class="cta">Download</a>
+  </nav>
+</div>
 
-<main>
+<!-- Hero -->
+<section class="hero col">
+  <div class="eyebrow">
+    <span class="pip">NEW</span>
+    Agentic Actions · Multi-step flows
+    <span class="arrow">→</span>
+  </div>
+  <h1 class="head">Dictate<span class="stop">.</span> <em>Edit.</em> Act<span class="stop">.</span></h1>
+  <p class="sub">Voice-first AI for your Mac. Speak to write. Highlight to transform. Talk to act — anywhere on your desktop.</p>
+  <div class="cta-row">
+    <a href="#" class="btn btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09z"/></svg>
+      Download for Mac
+    </a>
+    <a href="#pricing" class="btn btn-secondary">See pricing</a>
+    <a href="#" class="btn btn-ghost">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      Watch demo
+    </a>
+  </div>
+  <div class="meta">macOS 14+ · Apple Silicon &amp; Intel · Free trial</div>
 
-<!-- ============ HERO ============ -->
-<section class="hero">
-    <div class="hero-bg" aria-hidden="true">
-        <span class="blob blob-a"></span>
-        <span class="blob blob-b"></span>
-        <span class="blob blob-c"></span>
-        <span class="grain"></span>
-    </div>
-    <div class="hero-inner">
-        <img src="/assets/quill-icon.png" alt="Quill" class="hero-icon">
-        <p class="hero-eyebrow">Quill for Mac &amp; iPhone</p>
-        <h1 class="hero-title">
-            <span class="word" style="--d:0.15s">Dictate<span class="dot">.</span></span>
-            <span class="word" style="--d:0.35s">Edit<span class="dot">.</span></span>
-            <span class="word" style="--d:0.55s">Act<span class="dot">.</span></span>
-        </h1>
-        <p class="hero-sub">
-            Voice-first AI for your Mac and iPhone. Speak to write. Highlight to transform. Talk to act.
-        </p>
-        <div class="hero-cta">
-            <a href="https://github.com/joevasquez/Hex/releases/latest/download/Hex-latest.dmg" class="btn btn-primary">
-                <i class="fas fa-laptop"></i> Download for Mac
-            </a>
-            <a href="https://testflight.apple.com/join/RfDVsVs3" class="btn btn-outline" target="_blank" rel="noopener">
-                <i class="fab fa-apple"></i> iPhone TestFlight
-            </a>
-            <a href="#video" class="btn btn-ghost">
-                <i class="fas fa-play"></i> Watch the demo
-            </a>
+  <!-- HUD inline with floating side cards -->
+  <div class="hud-row">
+    <div class="side left">
+      <div class="float">
+        <div class="ic">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
         </div>
-        <p class="hero-meta">macOS 14+ · iOS 26.2+ · Free</p>
-
-        <!-- Inline animated typing demo -->
-        <div class="terminal" data-terminal>
-            <div class="terminal-row">
-                <span class="terminal-prompt"><i class="fas fa-microphone"></i></span>
-                <span class="terminal-text" data-terminal-text></span>
-                <span class="terminal-caret"></span>
-            </div>
-            <div class="terminal-wave" data-terminal-wave aria-hidden="true">
-                <span></span><span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span><span></span>
-            </div>
-            <div class="terminal-result" data-terminal-result>
-                <span class="terminal-check"><i class="fas fa-check"></i></span>
-                <span data-terminal-result-text></span>
-            </div>
+        <div>
+          <div class="lab">Hotkey</div>
+          <div class="ttl">Hold ⌥ Space</div>
         </div>
+      </div>
     </div>
+    <div class="hud">
+      <div class="hud-top">
+        <div class="rec"></div>
+        <div class="t">00:04</div>
+        <div class="src">Mail · Reply</div>
+      </div>
+      <div class="quote">
+        <span class="typed">"Yes the deck looks great — two notes:</span>
+        fix slide four, add Q3 numbers."<span class="caret"></span>
+      </div>
+      <div class="hud-wave">
+        <span style="height:8px"></span><span style="height:18px"></span><span style="height:6px"></span><span style="height:24px"></span><span style="height:12px"></span><span style="height:20px"></span><span style="height:8px"></span><span style="height:16px"></span><span style="height:10px"></span><span style="height:22px"></span><span style="height:14px"></span><span style="height:8px"></span><span style="height:20px"></span><span style="height:12px"></span><span style="height:6px"></span><span style="height:18px"></span><span style="height:10px"></span><span style="height:14px"></span><span style="height:8px"></span><span style="height:22px"></span>
+      </div>
+    </div>
+    <div class="side right">
+      <div class="float">
+        <div class="ic" style="background:linear-gradient(180deg,#34c759,#28a745)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="lab">Sent to</div>
+          <div class="ttl">Mail.app</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ============ THE LOOP ============ -->
-<section class="loop" id="how">
-    <div class="section-head">
-        <p class="eyebrow">The loop</p>
-        <h2>One voice. Three superpowers.</h2>
-        <p class="lede">
-            Quill turns the way you already talk into the way you work — capture, transform, and route, without leaving the app you're in.
-        </p>
+<!-- Social proof -->
+<section class="col proof">
+  <div class="proof-row">
+    <div class="proof-stats">
+      <div class="proof-stat">
+        <div class="num"><em>42k+</em></div>
+        <div class="label">Words dictated daily</div>
+      </div>
+      <div class="proof-stat">
+        <div class="num"><em>3.1×</em></div>
+        <div class="label">Faster than typing</div>
+      </div>
+      <div class="proof-stat">
+        <div class="num"><em>100%</em></div>
+        <div class="label">On-device option</div>
+      </div>
     </div>
-
-    <div class="loop-grid" data-reveal>
-        <svg class="loop-path" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M 60 60 Q 250 20 500 60 T 940 60" fill="none" stroke="url(#lp)" stroke-width="2" stroke-dasharray="4 6" />
-            <defs>
-                <linearGradient id="lp" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#C9B8FF" stop-opacity="0"/>
-                    <stop offset="20%" stop-color="#C9B8FF" stop-opacity="0.9"/>
-                    <stop offset="80%" stop-color="#C9B8FF" stop-opacity="0.9"/>
-                    <stop offset="100%" stop-color="#C9B8FF" stop-opacity="0"/>
-                </linearGradient>
-            </defs>
-        </svg>
-
-        <article class="loop-card" data-step="dictate">
-            <div class="loop-icon loop-icon-dictate" aria-hidden="true">
-                <span></span><span></span><span></span><span></span><span></span>
-            </div>
-            <h3>Dictate</h3>
-            <p class="loop-card-tag"><span class="pill pill-mac">Mac</span><span class="pill pill-ios">iPhone</span></p>
-            <p>Hold a hotkey or hit record. Speak. Get clean, formatted text — anywhere. Optional Claude or ChatGPT polish.</p>
-        </article>
-
-        <article class="loop-card" data-step="edit">
-            <div class="loop-icon loop-icon-edit" aria-hidden="true">
-                <span class="line line-1"></span>
-                <span class="line line-2"></span>
-                <span class="line line-3"></span>
-                <span class="highlight"></span>
-            </div>
-            <h3>Edit</h3>
-            <p class="loop-card-tag"><span class="pill pill-mac">Mac</span></p>
-            <p>Highlight any text in any app. Translate, shorten, expand, reformat — Quill rewrites it in place.</p>
-        </article>
-
-        <article class="loop-card" data-step="act">
-            <div class="loop-icon loop-icon-act" aria-hidden="true">
-                <span class="orb"></span>
-                <span class="branch branch-1"></span>
-                <span class="branch branch-2"></span>
-                <span class="branch branch-3"></span>
-                <span class="leaf leaf-1"><i class="fas fa-bell"></i></span>
-                <span class="leaf leaf-2"><i class="fas fa-calendar"></i></span>
-                <span class="leaf leaf-3"><i class="fas fa-envelope"></i></span>
-            </div>
-            <h3>Act</h3>
-            <p class="loop-card-tag"><span class="pill pill-mac">Mac</span><span class="pill pill-ios">iPhone</span></p>
-            <p>Speak naturally. Quill detects your intent and routes it — Reminders, Calendar, Mail, Todoist. You confirm before anything fires.</p>
-        </article>
+    <div class="proof-rating">
+      <div class="stars">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <div class="label">4.9 average · App Store + Setapp</div>
     </div>
+  </div>
+</section>
 
-    <!-- Demo prompt carousel -->
-    <div class="demo-carousel" data-carousel>
-        <div class="demo-head">
-            <p class="eyebrow">Things you can say to Quill</p>
-            <h3>Try a prompt.</h3>
+<!-- The Loop — three side by side -->
+<section class="s" id="loop">
+  <div class="col">
+    <div class="sec-label">The Loop</div>
+    <h2 class="sec-title">One voice. <em>Three superpowers.</em></h2>
+    <p class="sec-sub">Quill turns the way you already talk into the way you work — capture, transform, and route, without leaving the app you're in.</p>
+
+    <div class="trio">
+      <div class="feat">
+        <div class="ord">01 / Dictate</div>
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
         </div>
-        <div class="demo-grid">
-            <div class="demo-chips" role="tablist" aria-label="Demo prompts">
-                <button class="chip" data-chip="0" role="tab" aria-selected="true">
-                    <i class="fas fa-microphone"></i>
-                    <span>"Remind me to call Mom Friday at 3"</span>
-                </button>
-                <button class="chip" data-chip="1" role="tab" aria-selected="false">
-                    <i class="fas fa-microphone"></i>
-                    <span>"Lunch with Sarah Tuesday at 1 at Estela"</span>
-                </button>
-                <button class="chip" data-chip="2" role="tab" aria-selected="false">
-                    <i class="fas fa-microphone"></i>
-                    <span>"Action items: order envelopes, ship samples to Berlin"</span>
-                </button>
-                <button class="chip" data-chip="3" role="tab" aria-selected="false">
-                    <i class="fas fa-microphone"></i>
-                    <span>"Email Alex with a recap of today's call"</span>
-                </button>
-                <button class="chip" data-chip="4" role="tab" aria-selected="false">
-                    <i class="fas fa-microphone"></i>
-                    <span>"Translate this paragraph to Spanish"</span>
-                </button>
-                <button class="chip" data-chip="5" role="tab" aria-selected="false">
-                    <i class="fas fa-microphone"></i>
-                    <span>"Shorten this to two sentences"</span>
-                </button>
-                <button class="chip" data-chip="6" role="tab" aria-selected="false">
-                    <i class="fas fa-microphone"></i>
-                    <span>"Reschedule my 4pm to tomorrow morning"</span>
-                </button>
-            </div>
-
-            <!-- Faux device showing the routed action -->
-            <div class="device" aria-live="polite">
-                <div class="device-chrome">
-                    <span class="dot dot-r"></span>
-                    <span class="dot dot-y"></span>
-                    <span class="dot dot-g"></span>
-                    <span class="device-title" data-device-title>Quill</span>
-                </div>
-                <div class="device-screen">
-                    <div class="device-prompt" data-device-prompt></div>
-                    <div class="device-arrow" aria-hidden="true">
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
-                    <div class="device-result" data-device-result>
-                        <div class="device-result-app">
-                            <span class="device-result-icon" data-device-result-icon><i class="fas fa-bell"></i></span>
-                            <div>
-                                <strong data-device-result-app>Apple Reminders</strong>
-                                <span data-device-result-detail>Call Mom · Friday at 3:00 PM</span>
-                            </div>
-                            <span class="device-result-check"><i class="fas fa-check"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <h3>Dictate</h3>
+        <div class="tags"><span class="tag">Anywhere</span></div>
+        <p>Hold a hotkey or hit record. Speak. Get clean, formatted text — anywhere. Optional Claude or ChatGPT polish.</p>
+        <div class="feat-foot"><span class="kbd">⌥</span><span class="kbd">Space</span><span>to dictate</span></div>
+      </div>
+      <div class="feat">
+        <div class="ord">02 / Edit</div>
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
         </div>
-    </div>
-</section>
-
-<!-- ============ DEMO VIDEO ============ -->
-<section class="video-section" id="video">
-    <div class="section-head">
-        <p class="eyebrow">See it in motion</p>
-        <h2>Twenty-one seconds, end to end.</h2>
-    </div>
-    <div class="video-frame">
-        <div class="video-chrome">
-            <span class="dot dot-r"></span>
-            <span class="dot dot-y"></span>
-            <span class="dot dot-g"></span>
-            <span class="video-url">heyquill.ai</span>
+        <h3>Edit</h3>
+        <div class="tags"><span class="tag">Mac</span></div>
+        <p>Highlight any text in any app. Translate, shorten, expand, reformat — Quill rewrites it in place.</p>
+        <div class="feat-foot"><span class="kbd">⌥</span><span class="kbd">E</span><span>to transform</span></div>
+      </div>
+      <div class="feat">
+        <div class="ord">03 / Act</div>
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><line x1="12" y1="9" x2="6" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
         </div>
-        <video data-demo-video
-               src="/assets/quill-demo.mp4"
-               poster="/assets/quill-demo-poster.jpg"
-               autoplay muted loop playsinline preload="metadata"></video>
-        <button class="video-mute" data-video-mute aria-label="Toggle sound">
-            <i class="fas fa-volume-mute"></i>
-        </button>
+        <h3>Act</h3>
+        <div class="tags"><span class="tag">10+ apps</span></div>
+        <p>Speak naturally. Quill detects your intent and routes it — Reminders, Calendar, Mail, Todoist. You confirm before anything fires.</p>
+        <div class="feat-foot"><span class="kbd">⌥</span><span class="kbd">A</span><span>to act</span></div>
+      </div>
     </div>
-    <p class="video-caption">Live capture — Quill on macOS, recorded April 2026.</p>
+  </div>
 </section>
 
-<!-- ============ COMPARISON ============ -->
-<section class="compare" id="compare">
-    <div class="section-head">
-        <p class="eyebrow">How Quill compares</p>
-        <h2>Voice tools, end to end.</h2>
-        <p class="lede">Most tools stop at transcription. Quill keeps going — into edits, into actions, into your other apps.</p>
-    </div>
+<!-- Demo video -->
+<section class="video-section col" id="video">
+  <div class="sec-label">See it in motion</div>
+  <h2 class="sec-title">Twenty-one seconds, <em>end to end.</em></h2>
+  <p class="sec-sub">Live capture — Quill on macOS, recorded April 2026.</p>
 
-    <div class="compare-table-wrap">
-        <table class="compare-table">
-            <thead>
-                <tr>
-                    <th scope="col" class="feature-col">Feature</th>
-                    <th scope="col" class="quill-col">Quill</th>
-                    <th scope="col">Apple<br>Dictation</th>
-                    <th scope="col">Wispr<br>Flow</th>
-                    <th scope="col">Super<br>Whisper</th>
-                    <th scope="col">ChatGPT<br>Voice</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">On-device transcription</th>
-                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-partial><span aria-label="Partial">●</span></td>
-                    <td data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">AI cleanup &amp; rewriting</th>
-                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                    <td data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-yes><span aria-label="Yes">✓</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">Edit any selected text, in any app</th>
-                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">Auto-route to Reminders, Calendar, Mail, Todoist</th>
-                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">Mac &amp; iPhone</th>
-                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-partial><span aria-label="Partial">●</span></td>
-                    <td data-partial><span aria-label="Partial">●</span></td>
-                    <td data-yes><span aria-label="Yes">✓</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">Free</th>
-                    <td class="quill-col" data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-yes><span aria-label="Yes">✓</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                    <td data-no><span aria-label="No">–</span></td>
-                    <td data-partial><span aria-label="Partial">●</span></td>
-                </tr>
-            </tbody>
-        </table>
-        <p class="compare-legend">
-            <span><span class="legend-mark" data-yes>✓</span> Yes</span>
-            <span><span class="legend-mark" data-partial>●</span> Partial</span>
-            <span><span class="legend-mark" data-no>–</span> No</span>
-        </p>
+  <div class="video-frame">
+    <div class="video-chrome">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="url">heyquill.ai</div>
     </div>
+    <video src="/assets/quill-demo.mp4"
+           poster="/assets/quill-demo-poster.jpg"
+           autoplay muted loop playsinline preload="metadata"></video>
+    <button class="video-mute" id="videoMute" aria-label="Toggle sound">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    </button>
+  </div>
 </section>
 
-<!-- ============ CAPABILITIES ============ -->
-<section class="capabilities" id="capabilities">
-    <div class="section-head">
-        <p class="eyebrow">Capabilities</p>
-        <h2>What Quill actually does.</h2>
-    </div>
-    <div class="cap-grid">
-        <article class="cap-card">
-            <header>
-                <span class="cap-num">01</span>
-                <h3>Dictate</h3>
-                <span class="cap-platforms"><span class="pill pill-mac">Mac</span><span class="pill pill-ios">iPhone</span></span>
-            </header>
-            <ul>
-                <li>On-device transcription via Parakeet (Mac) or Whisper (Mac + iPhone), Core ML accelerated.</li>
-                <li>Hold a hotkey on Mac, hit record on iPhone — text pastes into whatever app you're in.</li>
-                <li>Optional Claude or ChatGPT polish: clean prose, email tone, structured notes, code comments.</li>
-                <li>Inline voice commands ("new paragraph", "period", "question mark").</li>
-            </ul>
-        </article>
-        <article class="cap-card">
-            <header>
-                <span class="cap-num">02</span>
-                <h3>Edit</h3>
-                <span class="cap-platforms"><span class="pill pill-mac">Mac</span></span>
-            </header>
-            <ul>
-                <li>Highlight any text in any app, trigger Quill, transform it in place.</li>
-                <li>Translate, shorten, expand, reformat as bullets, switch tone, fix grammar.</li>
-                <li>Use a preset or speak your own instruction.</li>
-                <li>Works in Messages, Mail, code editors, browsers, anywhere selectable text lives.</li>
-            </ul>
-        </article>
-        <article class="cap-card">
-            <header>
-                <span class="cap-num">03</span>
-                <h3>Act</h3>
-                <span class="cap-platforms"><span class="pill pill-mac">Mac</span><span class="pill pill-ios">iPhone</span></span>
-            </header>
-            <ul>
-                <li>Quill detects your intent and proposes an action across your apps.</li>
-                <li><em>"Remind me to…"</em> → Apple Reminders. <em>"Add to my calendar…"</em> → Calendar.</li>
-                <li><em>"Email…"</em> → drafted in Mail. Action items → Todoist.</li>
-                <li>Always confirm before anything fires. No silent sends.</li>
-            </ul>
-        </article>
-    </div>
-</section>
+<!-- What's New — horizontal 3-up, first card is the spotlight -->
+<section class="s new" id="new">
+  <div class="col">
+    <div class="sec-label">What's New · v2.0</div>
+    <h2 class="sec-title">Fresh ways to <em>get it done.</em></h2>
+    <p class="sec-sub">Three big additions that make Quill faster, smarter, and available in more places than before.</p>
 
-<!-- ============ PRIVACY ============ -->
-<section class="privacy" id="privacy">
-    <div class="privacy-card">
-        <span class="privacy-badge"><i class="fas fa-lock"></i> Privacy</span>
-        <h2>Your audio never leaves your device.</h2>
-        <p>
-            Transcription runs locally on Mac and iPhone via Core ML. Edit and Action use your own
-            Anthropic or OpenAI key — stored in Keychain — and only fire after you confirm. No
-            telemetry, no analytics, no audio in the cloud.
-        </p>
-    </div>
-</section>
-
-<!-- ============ DOWNLOAD ============ -->
-<section class="download" id="download">
-    <div class="section-head">
-        <p class="eyebrow">Download</p>
-        <h2>Pick your platform.</h2>
-        <p class="lede">Both are free. Mac is generally available, iPhone is in public TestFlight beta.</p>
-    </div>
-    <div class="platforms">
-        <div class="platform-card platform-mac">
-            <div class="platform-head">
-                <i class="fas fa-laptop"></i>
-                <div>
-                    <p class="platform-tag">macOS</p>
-                    <h3>Quill for Mac</h3>
-                </div>
+    <div class="new-wide">
+      <div class="nc featured">
+        <span class="pip">● Floating HUD</span>
+        <h3>A new Voice HUD.</h3>
+        <p>Hold the hotkey, speak, watch your words land where the cursor is. Re-recordable, undo-friendly, and out of your way the moment it's done.</p>
+        <div class="visual">
+          <div class="hud" style="width:280px;transform:none;">
+            <div class="hud-top">
+              <div class="rec"></div>
+              <div class="t">00:06</div>
+              <div class="src">Notion · Doc</div>
             </div>
-            <p>Menu bar app. Hold a hotkey, speak — text pastes into the app you're already using. Edit and Act ship with the Mac build.</p>
-            <p class="platform-meta">macOS 14 (Sonoma) or later · Apple Silicon or Intel</p>
-            <div class="platform-cta">
-                <a href="https://github.com/joevasquez/Hex/releases/latest/download/Hex-latest.dmg" class="btn btn-primary">
-                    <i class="fab fa-apple"></i> Download for Mac
-                </a>
-                <a href="https://github.com/joevasquez/Hex/releases" class="btn btn-ghost" target="_blank" rel="noopener">
-                    Release notes
-                </a>
+            <div class="quote" style="font-size:15px;padding:6px 0 12px;">
+              <span class="typed">"Action items from the kickoff —</span>
+              ship Q3 brief Friday, sync Maya."<span class="caret" style="height:16px"></span>
             </div>
+            <div class="hud-wave" style="height:22px">
+              <span style="height:6px"></span><span style="height:14px"></span><span style="height:5px"></span><span style="height:18px"></span><span style="height:9px"></span><span style="height:16px"></span><span style="height:7px"></span><span style="height:12px"></span><span style="height:10px"></span><span style="height:18px"></span><span style="height:11px"></span><span style="height:7px"></span><span style="height:16px"></span><span style="height:9px"></span>
+            </div>
+          </div>
         </div>
-        <div class="platform-card platform-ios">
-            <div class="platform-head">
-                <i class="fas fa-mobile-alt"></i>
-                <div>
-                    <p class="platform-tag">iOS · TestFlight beta</p>
-                    <h3>Quill for iPhone</h3>
-                </div>
+      </div>
+
+      <div class="nc">
+        <span class="pip">● Mac</span>
+        <h3>Agentic Actions</h3>
+        <p>Say "Lunch with Sarah Tuesday at 1 at Estela." Quill detects intent, fills the right app, asks once before firing.</p>
+        <div class="visual">
+          <div class="agent-chip">
+            <div class="ic">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             </div>
-            <p>Voice notes plus Action — capture and route in one motion. On-device Whisper, optional AI cleanup.</p>
-            <p class="platform-meta">iOS 26.2 or later · TestFlight required · Builds rotate every 90 days</p>
-            <div class="platform-cta">
-                <a href="https://testflight.apple.com/join/RfDVsVs3" class="btn btn-primary" target="_blank" rel="noopener">
-                    <i class="fab fa-apple"></i> Join the TestFlight beta
-                </a>
+            <div>
+              <div class="title">Lunch with Sarah</div>
+              <div class="meta">Tue 1:00 PM · Estela</div>
             </div>
+            <div class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </div>
         </div>
+      </div>
+
+      <div class="nc">
+        <span class="pip">● Mac</span>
+        <h3>Multi-step flows</h3>
+        <p>Chain actions in a single breath. Quill parses, plans, and confirms each leg before it touches your apps.</p>
+        <div class="visual">
+          <div class="chain-vis">
+            <div class="step">→ reply to Maya</div>
+            <div class="step">→ close Linear ticket QU-412</div>
+            <div class="step">→ remind tomorrow at 9am</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
-</main>
+<!-- Try a prompt -->
+<section class="s" id="try">
+  <div class="col">
+    <div class="sec-label">Things you can say to Quill</div>
+    <h2 class="sec-title"><em>Try a prompt.</em></h2>
+    <p class="sec-sub">Pick one. Watch what Quill hears, decides, and confirms — before anything fires.</p>
 
-<footer class="footer">
-    <div class="footer-inner">
-        <a href="/" class="footer-brand">
-            <img src="/assets/quill-icon.png" alt="" class="nav-icon">
-            <span>Quill</span>
-        </a>
-        <p class="footer-meta">
-            Built by <a href="https://joevasquez.com" target="_blank" rel="noopener">Joe Vasquez</a>.
-            Quill is free.
-            <a href="https://github.com/joevasquez/Hex" target="_blank" rel="noopener" class="footer-source">Source</a>
-        </p>
+    <div class="try-frame">
+      <div class="try-bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="ttl">quill — dictate</div>
+      </div>
+      <div class="try-body">
+        <div class="try-prompts">
+          <div class="lbl">Suggested prompts</div>
+          <div class="pr"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Remind me to call Mom Friday at 3"</div>
+          <div class="pr active"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Lunch with Sarah Tuesday at 1 at Estela"</div>
+          <div class="pr"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Action items: order envelopes, ship samples"</div>
+          <div class="pr"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Email Alex with a recap of today's call"</div>
+          <div class="pr"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Translate this paragraph to Spanish"</div>
+          <div class="pr"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Reschedule my 4pm to tomorrow morning"</div>
+        </div>
+        <div class="try-out">
+          <div class="heard">Quill heard</div>
+          <div class="said">"Lunch with Sarah Tuesday at 1 at Estela"</div>
+          <div class="arrow">↓</div>
+          <div class="out">
+            <div class="ic">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="lines">
+              <div class="a">Apple Calendar</div>
+              <div class="b">Lunch with Sarah · Tue 1:00 PM · Estela</div>
+            </div>
+            <div class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </div>
+          <div class="conf"><span class="dot"></span>You'll always confirm before Quill fires an action.</div>
+        </div>
+      </div>
     </div>
-</footer>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="s" id="pricing" style="background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elev) 100%); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <div class="col">
+    <div class="sec-label">Pricing</div>
+    <h2 class="sec-title">Two simple plans. <em>You pick.</em></h2>
+    <p class="sec-sub">Bring your own AI keys and pay once. Or let us handle everything for ten bucks a month.</p>
+
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-head">
+          <span class="price-pip">One-time</span>
+          <h3>Bring Your Own Keys</h3>
+          <p class="price-desc">Pay once, use forever. Plug in your own Claude or OpenAI key — Quill never touches your bill.</p>
+        </div>
+        <div class="price-amount">
+          <span class="price-num">$50</span>
+          <span class="price-per">once · forever</span>
+        </div>
+        <ul class="price-feats">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited Dictate, Edit, Act</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Use your own Claude / OpenAI key</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>On-device transcription option</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>All future v2.x updates included</li>
+        </ul>
+        <a href="#" class="btn btn-secondary price-cta">Buy once — $50</a>
+        <div class="price-foot">Best for power users with API access.</div>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-glow"></div>
+        <div class="price-head">
+          <span class="price-pip">Most popular</span>
+          <h3>Quill Pro</h3>
+          <p class="price-desc">No keys, no limits, no fuss. Quill handles the AI bill — you just talk.</p>
+        </div>
+        <div class="price-amount">
+          <span class="price-num">$10</span>
+          <span class="price-per">/ month</span>
+        </div>
+        <ul class="price-feats">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited LLM use, no key required</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited Agentic Actions</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Premium voice models &amp; faster polish</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Priority support &amp; early access features</li>
+        </ul>
+        <a href="#" class="btn btn-primary price-cta">Start free trial</a>
+        <div class="price-foot">7-day free trial · Cancel anytime</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="s" id="love">
+  <div class="col">
+    <div class="sec-label">Praise</div>
+    <h2 class="sec-title">From people who <em>write a lot.</em></h2>
+
+    <div class="testi-grid">
+      <div class="testi">
+        <blockquote>I wrote a 1,200-word product brief on the F train. Hand never touched the screen.</blockquote>
+        <div class="who">
+          <div class="ava">MR</div>
+          <div>
+            <div class="name">Maya R.</div>
+            <div class="role">Product Lead, design tools startup</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi">
+        <blockquote>Finally — voice that doesn't feel like assistive tech. It feels like a faster way to think on screen.</blockquote>
+        <div class="who">
+          <div class="ava">JK</div>
+          <div>
+            <div class="name">Jordan K.</div>
+            <div class="role">Engineer, fintech</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi">
+        <blockquote>The Edit shortcut alone is worth the install. Highlight, hold, speak — fixed.</blockquote>
+        <div class="who">
+          <div class="ava">PL</div>
+          <div>
+            <div class="name">Priya L.</div>
+            <div class="role">Writer & researcher</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="featured-in">
+      <div class="lab">As seen on</div>
+      <div class="logos">
+        <span class="alt">Hacker News</span>
+        <span>Product Hunt</span>
+        <span class="alt">Setapp</span>
+        <span>The Verge</span>
+        <span class="alt">MacStories</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="col">
+  <div class="final">
+    <h2>Stop typing. <em>Start talking.</em></h2>
+    <p>Free during beta. Works offline. Your voice never leaves your device unless you ask it to.</p>
+    <div class="cta-row">
+      <a href="#" class="btn btn-primary">Download for Mac</a>
+      <a href="#pricing" class="btn btn-secondary">See pricing</a>
+    </div>
+    <div class="meta">macOS 14+ · Apple Silicon &amp; Intel · Free trial</div>
+  </div>
+
+  <footer>
+    <div>© 2026 Quill Labs · Privacy-first by default</div>
+    <div class="links">
+      <a href="#">Privacy</a>
+      <a href="#">Compare</a>
+      <a href="#">Changelog</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+</section>
+
+<script>
+  (function () {
+    var btn = document.getElementById('videoMute');
+    if (!btn) return;
+    var video = btn.previousElementSibling;
+    var unmuteIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+    var muteIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+    btn.addEventListener('click', function () {
+      video.muted = !video.muted;
+      btn.innerHTML = video.muted ? unmuteIcon : muteIcon;
+      if (!video.muted) video.play();
+    });
+  })();
+</script>
 
 </body>
 </html>
