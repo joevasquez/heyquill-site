@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Quill — Voice-first AI for Mac</title>
+<title>Quill — Voice-first AI for Mac and iPhone</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Voice-first AI for your Mac. Speak to write. Highlight to transform. Talk to act.">
+<meta name="description" content="The voice agent that takes action. Speak to write, transform text, and run multi-step workflows across your Mac and iPhone — Reminders, Calendar, Mail, and more.">
 <meta name="theme-color" content="#7c3aed">
 
-<meta property="og:title" content="Quill — Voice-first AI for Mac">
-<meta property="og:description" content="Voice-first AI for your Mac. Speak to write. Highlight to transform. Talk to act.">
+<meta property="og:title" content="Quill — Voice-first AI for Mac and iPhone">
+<meta property="og:description" content="The voice agent that takes action. Speak to write, transform text, and run multi-step workflows across your Mac and iPhone — Reminders, Calendar, Mail, and more.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://heyquill.ai">
 <meta property="og:image" content="https://heyquill.ai/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Quill — Voice-first AI for Mac">
-<meta name="twitter:description" content="Voice-first AI for your Mac.">
+<meta name="twitter:title" content="Quill — Voice-first AI for Mac and iPhone">
+<meta name="twitter:description" content="The voice agent that takes action. Speak to write, transform text, and run multi-step workflows across your Mac and iPhone — Reminders, Calendar, Mail, and more.">
 <meta name="twitter:image" content="https://heyquill.ai/assets/og-image.jpg">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -562,8 +562,90 @@
     font-size: 13px; color: var(--ink-mute);
   }
 
+  /* Device toggle pill */
+  .device-toggle {
+    display: flex; gap: 4px; margin: 0 auto 18px; padding: 3px;
+    background: var(--bg-elev); border: 1px solid var(--line);
+    border-radius: 999px; width: fit-content;
+  }
+  .dt-btn {
+    padding: 6px 18px; border: none; border-radius: 999px;
+    font-size: 13px; font-weight: 500; font-family: var(--sans);
+    cursor: pointer; background: transparent; color: var(--ink-soft);
+    transition: background 0.15s, color 0.15s;
+  }
+  .dt-btn.active {
+    background: linear-gradient(180deg, var(--p-500), var(--p-600));
+    color: #fff; box-shadow: 0 1px 4px rgba(124,58,237,0.25);
+  }
+
+  /* Featured feat card */
+  .feat.featured {
+    background: linear-gradient(180deg, var(--p-500), var(--p-700));
+    color: #fff; border-color: transparent;
+    box-shadow: var(--shadow-purple);
+    grid-column: span 2;
+  }
+  .feat.featured .ord,
+  .feat.featured p { color: rgba(255,255,255,0.85); }
+  .feat.featured .tag { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.2); }
+  .feat.featured .feat-foot { color: rgba(255,255,255,0.7); }
+  .feat.featured .feat-foot .kbd { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.2); }
+  .feat.featured .feat-icon { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.2); color: #fff; }
+
+  /* New tag accent */
+  .tag.new-tag { background: linear-gradient(180deg, var(--p-500), var(--p-600)); color: #fff; border-color: transparent; }
+  .feat .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  /* Trio grid — 2x2 with featured spanning */
+  .trio { grid-template-columns: repeat(2, 1fr); }
+
+  /* Comparison table */
+  .compare-wrap {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--line); border-radius: 16px;
+    position: relative;
+  }
+  table.cmp {
+    width: 100%; min-width: 700px; border-collapse: collapse;
+    font-size: 14px; font-family: var(--sans);
+  }
+  .cmp th, .cmp td {
+    padding: 12px 16px; text-align: center; border-bottom: 1px solid var(--line);
+  }
+  .cmp th:first-child, .cmp td:first-child { text-align: left; font-weight: 500; }
+  .cmp thead th {
+    background: var(--bg-elev); font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft);
+    position: sticky; top: 0; z-index: 1;
+  }
+  .cmp thead th a { color: var(--ink-soft); text-decoration: underline; text-decoration-color: var(--line-strong); }
+  .cmp thead th a:hover { color: var(--p-500); }
+  .cmp .col-quill {
+    background: var(--p-50);
+    border-left: 2px solid var(--p-200); border-right: 2px solid var(--p-200);
+  }
+  .cmp thead .col-quill { color: var(--p-600); font-weight: 700; }
+  .cmp tbody tr:last-child td { border-bottom: none; }
+  .cmp .ck-icon { vertical-align: middle; }
+  .cmp-no { color: var(--ink-mute); font-size: 13px; }
+  .cmp-partial { color: var(--ink-soft); font-size: 13px; font-style: italic; }
+  .cmp-ts { text-align: center; font-size: 12px; color: var(--ink-mute); margin: 12px 0 4px; }
+  .cmp-caveat { text-align: center; font-size: 12px; color: var(--ink-mute); max-width: 600px; margin: 0 auto; }
+
+  /* Pricing 3-column */
+  .price-grid.three-tier { grid-template-columns: repeat(3, 1fr); max-width: 1080px; }
+  .price-save { font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 500; }
+
+  /* Testimonials 2x2 */
+  .testi-grid { grid-template-columns: repeat(2, 1fr); }
+
+  @media (max-width: 980px) {
+    .feat.featured { grid-column: span 1; }
+  }
+
   @media (max-width: 760px) {
-    .price-grid { grid-template-columns: 1fr; }
+    .price-grid, .price-grid.three-tier { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -579,9 +661,10 @@
       <span class="brand-word">Quill</span>
     </a>
     <a href="#loop" class="lnk">Features</a>
+    <a href="#try" class="lnk">Try it</a>
     <a href="#video" class="lnk">Demo</a>
     <a href="#new" class="lnk">What's new</a>
-    <a href="#try" class="lnk">Try it</a>
+    <a href="#compare" class="lnk">Compare</a>
     <a href="#pricing" class="lnk">Pricing</a>
     <a href="#love" class="lnk">Praise</a>
     <a href="#" class="cta">Download</a>
@@ -592,26 +675,36 @@
 <section class="hero col">
   <div class="eyebrow">
     <span class="pip">NEW</span>
-    Agentic Actions · Multi-step flows
+    Quill on iPhone · Agentic Actions on the go
     <span class="arrow">→</span>
   </div>
-  <h1 class="head">Dictate<span class="stop">.</span> <em>Edit.</em> Act<span class="stop">.</span></h1>
-  <p class="sub">Voice-first AI for your Mac. Speak to write. Highlight to transform. Talk to act — anywhere on your desktop.</p>
+  <h1 class="head">Say it once<span class="stop">.</span> <em>Quill does it.</em></h1>
+  <p class="sub">The voice agent for your Mac and iPhone. Dictate anywhere, transform any text, and run multi-step actions across the apps you already use — with a confirm step before anything fires.</p>
   <div class="cta-row">
     <a href="#" class="btn btn-primary">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09z"/></svg>
       Download for Mac
     </a>
-    <a href="#pricing" class="btn btn-secondary">See pricing</a>
-    <a href="#" class="btn btn-ghost">
+    <a href="#" class="btn btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09z"/></svg>
+      Download for iOS
+    </a>
+    <a href="#pricing" class="btn btn-ghost">See pricing →</a>
+    <a href="#video" class="btn btn-ghost">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
       Watch demo
     </a>
   </div>
-  <div class="meta">macOS 14+ · Apple Silicon &amp; Intel · Free trial</div>
+  <div class="meta">macOS 14+ · iOS 17+ · Free trial · Privacy-first</div>
+
+  <!-- Device toggle -->
+  <div class="device-toggle" data-device-toggle>
+    <button class="dt-btn active" data-device="mac">Mac</button>
+    <button class="dt-btn" data-device="iphone">iPhone</button>
+  </div>
 
   <!-- HUD inline with floating side cards -->
-  <div class="hud-row">
+  <div class="hud-row" data-hud-mac>
     <div class="side left">
       <div class="float">
         <div class="ic">
@@ -649,6 +742,46 @@
       </div>
     </div>
   </div>
+
+  <!-- iPhone HUD -->
+  <div class="hud-row" data-hud-iphone style="display:none">
+    <div class="side left">
+      <div class="float">
+        <div class="ic">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+        </div>
+        <div>
+          <div class="lab">Hotkey</div>
+          <div class="ttl">Hold side button</div>
+        </div>
+      </div>
+    </div>
+    <div class="hud">
+      <div class="hud-top">
+        <div class="rec"></div>
+        <div class="t">00:03</div>
+        <div class="src">Messages · Reply to Maya</div>
+      </div>
+      <div class="quote">
+        <span class="typed">"Tell her I'll be 10 min late,</span>
+        parking is brutal."<span class="caret"></span>
+      </div>
+      <div class="hud-wave">
+        <span style="height:6px"></span><span style="height:14px"></span><span style="height:5px"></span><span style="height:18px"></span><span style="height:9px"></span><span style="height:16px"></span><span style="height:7px"></span><span style="height:12px"></span><span style="height:10px"></span><span style="height:18px"></span><span style="height:11px"></span><span style="height:7px"></span><span style="height:16px"></span><span style="height:9px"></span><span style="height:6px"></span><span style="height:14px"></span><span style="height:8px"></span><span style="height:12px"></span><span style="height:7px"></span><span style="height:18px"></span>
+      </div>
+    </div>
+    <div class="side right">
+      <div class="float">
+        <div class="ic" style="background:linear-gradient(180deg,#34c759,#28a745)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="lab">Routed to</div>
+          <div class="ttl">Messages.app</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Social proof -->
@@ -664,8 +797,8 @@
         <div class="label">Faster than typing</div>
       </div>
       <div class="proof-stat">
-        <div class="num"><em>100%</em></div>
-        <div class="label">On-device option</div>
+        <div class="num"><em>Mac + iOS</em></div>
+        <div class="label">One subscription</div>
       </div>
     </div>
     <div class="proof-rating">
@@ -685,12 +818,22 @@
 <section class="s" id="loop">
   <div class="col">
     <div class="sec-label">The Loop</div>
-    <h2 class="sec-title">One voice. <em>Three superpowers.</em></h2>
+    <h2 class="sec-title">One voice. <em>Everywhere you work.</em></h2>
     <p class="sec-sub">Quill turns the way you already talk into the way you work — capture, transform, and route, without leaving the app you're in.</p>
 
     <div class="trio">
+      <div class="feat featured">
+        <div class="ord">01 / Act</div>
+        <div class="feat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><line x1="12" y1="9" x2="6" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+        </div>
+        <h3>Act</h3>
+        <div class="tags"><span class="tag">Mac + iOS</span><span class="tag">12 apps</span></div>
+        <p>Speak naturally. Quill detects intent and runs the action — single-step or multi-step — across Reminders, Calendar, Mail, Messages, Todoist, Notion, Linear, and more. You confirm before anything fires.</p>
+        <div class="feat-foot"><span class="kbd">⌥</span><span class="kbd">A</span><span>to act</span></div>
+      </div>
       <div class="feat">
-        <div class="ord">01 / Dictate</div>
+        <div class="ord">02 / Dictate</div>
         <div class="feat-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
         </div>
@@ -700,7 +843,7 @@
         <div class="feat-foot"><span class="kbd">⌥</span><span class="kbd">Space</span><span>to dictate</span></div>
       </div>
       <div class="feat">
-        <div class="ord">02 / Edit</div>
+        <div class="ord">03 / Edit</div>
         <div class="feat-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
         </div>
@@ -710,14 +853,57 @@
         <div class="feat-foot"><span class="kbd">⌥</span><span class="kbd">E</span><span>to transform</span></div>
       </div>
       <div class="feat">
-        <div class="ord">03 / Act</div>
+        <div class="ord">04 / Sync</div>
         <div class="feat-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><line x1="12" y1="9" x2="6" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
         </div>
-        <h3>Act</h3>
-        <div class="tags"><span class="tag">10+ apps</span></div>
-        <p>Speak naturally. Quill detects your intent and routes it — Reminders, Calendar, Mail, Todoist. You confirm before anything fires.</p>
-        <div class="feat-foot"><span class="kbd">⌥</span><span class="kbd">A</span><span>to act</span></div>
+        <h3>Sync</h3>
+        <div class="tags"><span class="tag">Mac ↔ iOS</span><span class="tag new-tag">New</span></div>
+        <p>Start on your phone, finish on your Mac. Same hotword, same connected apps, same context. One Quill account, everywhere you work.</p>
+        <div class="feat-foot"><span class="kbd">⌥</span><span class="kbd">Q</span><span>on Mac · side button on iPhone</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Try a prompt -->
+<section class="s" id="try">
+  <div class="col">
+    <div class="sec-label">Things you can say to Quill</div>
+    <h2 class="sec-title"><em>Try a prompt.</em></h2>
+    <p class="sec-sub">Pick one. Watch what Quill hears, decides, and confirms — before anything fires.</p>
+
+    <div class="try-frame">
+      <div class="try-bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="ttl">quill — dictate</div>
+      </div>
+      <div class="try-body">
+        <div class="try-prompts" data-carousel>
+          <div class="lbl">Suggested prompts</div>
+          <div class="pr" data-prompt="0"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Remind me to call Mom Friday at 3"</div>
+          <div class="pr active" data-prompt="1"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Text Maya I'll be 10 min late"</div>
+          <div class="pr" data-prompt="2"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Lunch with Sarah Tuesday at 1 at Estela"</div>
+          <div class="pr" data-prompt="3"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Email Alex with a recap of today's call"</div>
+          <div class="pr" data-prompt="4"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Add oat milk and eggs to my shopping list"</div>
+          <div class="pr" data-prompt="5"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Reschedule my 4pm to tomorrow morning"</div>
+        </div>
+        <div class="try-out">
+          <div class="heard">Quill heard</div>
+          <div class="said">"Text Maya I'll be 10 min late"</div>
+          <div class="arrow">↓</div>
+          <div class="out">
+            <div class="ic">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="lines">
+              <div class="a">Messages</div>
+              <div class="b">Text to Maya · "I'll be 10 min late"</div>
+            </div>
+            <div class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </div>
+          <div class="conf"><span class="dot"></span>You'll always confirm before Quill fires an action.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -752,19 +938,19 @@
 
     <div class="new-wide">
       <div class="nc featured">
-        <span class="pip">● Floating HUD</span>
-        <h3>A new Voice HUD.</h3>
-        <p>Hold the hotkey, speak, watch your words land where the cursor is. Re-recordable, undo-friendly, and out of your way the moment it's done.</p>
+        <span class="pip">● iPhone</span>
+        <h3>Quill on iPhone</h3>
+        <p>Hold the side button, speak, get the same Dictate / Edit / Act loop in your pocket. Routes to Apple's native Reminders, Calendar, Mail, and Messages — and the same third-party apps Quill knows on Mac.</p>
         <div class="visual">
           <div class="hud" style="width:280px;transform:none;">
             <div class="hud-top">
               <div class="rec"></div>
-              <div class="t">00:06</div>
-              <div class="src">Notion · Doc</div>
+              <div class="t">00:03</div>
+              <div class="src">Messages · Reply</div>
             </div>
             <div class="quote" style="font-size:15px;padding:6px 0 12px;">
-              <span class="typed">"Action items from the kickoff —</span>
-              ship Q3 brief Friday, sync Maya."<span class="caret" style="height:16px"></span>
+              <span class="typed">"Tell Maya I'll be 10 min late,</span>
+              parking is brutal."<span class="caret" style="height:16px"></span>
             </div>
             <div class="hud-wave" style="height:22px">
               <span style="height:6px"></span><span style="height:14px"></span><span style="height:5px"></span><span style="height:18px"></span><span style="height:9px"></span><span style="height:16px"></span><span style="height:7px"></span><span style="height:12px"></span><span style="height:10px"></span><span style="height:18px"></span><span style="height:11px"></span><span style="height:7px"></span><span style="height:16px"></span><span style="height:9px"></span>
@@ -774,7 +960,7 @@
       </div>
 
       <div class="nc">
-        <span class="pip">● Mac</span>
+        <span class="pip">● Mac + iOS</span>
         <h3>Agentic Actions</h3>
         <p>Say "Lunch with Sarah Tuesday at 1 at Estela." Quill detects intent, fills the right app, asks once before firing.</p>
         <div class="visual">
@@ -792,7 +978,7 @@
       </div>
 
       <div class="nc">
-        <span class="pip">● Mac</span>
+        <span class="pip">● Mac + iOS</span>
         <h3>Multi-step flows</h3>
         <p>Chain actions in a single breath. Quill parses, plans, and confirms each leg before it touches your apps.</p>
         <div class="visual">
@@ -807,46 +993,111 @@
   </div>
 </section>
 
-<!-- Try a prompt -->
-<section class="s" id="try">
+<!-- Compare -->
+<section class="s" id="compare">
   <div class="col">
-    <div class="sec-label">Things you can say to Quill</div>
-    <h2 class="sec-title"><em>Try a prompt.</em></h2>
-    <p class="sec-sub">Pick one. Watch what Quill hears, decides, and confirms — before anything fires.</p>
+    <div class="sec-label">Compare</div>
+    <h2 class="sec-title">How Quill <em>compares.</em></h2>
+    <p class="sec-sub">Most voice apps stop at transcription. Quill is the only cross-device voice agent that takes action.</p>
 
-    <div class="try-frame">
-      <div class="try-bar">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <div class="ttl">quill — dictate</div>
-      </div>
-      <div class="try-body">
-        <div class="try-prompts">
-          <div class="lbl">Suggested prompts</div>
-          <div class="pr"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Remind me to call Mom Friday at 3"</div>
-          <div class="pr active"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Lunch with Sarah Tuesday at 1 at Estela"</div>
-          <div class="pr"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Action items: order envelopes, ship samples"</div>
-          <div class="pr"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Email Alex with a recap of today's call"</div>
-          <div class="pr"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Translate this paragraph to Spanish"</div>
-          <div class="pr"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>"Reschedule my 4pm to tomorrow morning"</div>
-        </div>
-        <div class="try-out">
-          <div class="heard">Quill heard</div>
-          <div class="said">"Lunch with Sarah Tuesday at 1 at Estela"</div>
-          <div class="arrow">↓</div>
-          <div class="out">
-            <div class="ic">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            </div>
-            <div class="lines">
-              <div class="a">Apple Calendar</div>
-              <div class="b">Lunch with Sarah · Tue 1:00 PM · Estela</div>
-            </div>
-            <div class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          </div>
-          <div class="conf"><span class="dot"></span>You'll always confirm before Quill fires an action.</div>
-        </div>
-      </div>
+    <div class="compare-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="col-quill">Quill</th>
+            <th><a href="https://wisprflow.com" target="_blank" rel="noopener">Wispr Flow</a></th>
+            <th><a href="https://superwhisper.com" target="_blank" rel="noopener">Superwhisper</a></th>
+            <th><a href="https://heylemon.ai" target="_blank" rel="noopener">Lemon AI</a></th>
+            <th><a href="https://voibe.app" target="_blank" rel="noopener">Voibe</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dictate anywhere</td>
+            <td class="col-quill"><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>Edit highlighted text by voice</td>
+            <td class="col-quill"><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><span class="cmp-no">—</span></td>
+          </tr>
+          <tr>
+            <td>Voice-to-action (run real workflows)</td>
+            <td class="col-quill"><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><span class="cmp-no">—</span></td>
+            <td><span class="cmp-no">—</span></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><span class="cmp-no">—</span></td>
+          </tr>
+          <tr>
+            <td>Multi-step flows</td>
+            <td class="col-quill"><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><span class="cmp-no">—</span></td>
+            <td><span class="cmp-no">—</span></td>
+            <td><span class="cmp-partial">Partial</span></td>
+            <td><span class="cmp-no">—</span></td>
+          </tr>
+          <tr>
+            <td>Mac</td>
+            <td class="col-quill"><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>iPhone</td>
+            <td class="col-quill"><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><span class="cmp-partial">Separate sub</span></td>
+            <td><span class="cmp-no">—</span></td>
+            <td><span class="cmp-no">—</span></td>
+          </tr>
+          <tr>
+            <td>On-device transcription</td>
+            <td class="col-quill"><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><span class="cmp-no">—</span></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><span class="cmp-no">—</span></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>Bring your own API key</td>
+            <td class="col-quill"><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><span class="cmp-no">—</span></td>
+            <td><svg class="ck-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td><span class="cmp-no">—</span></td>
+            <td><span class="cmp-no">—</span></td>
+          </tr>
+          <tr>
+            <td>One-time purchase option</td>
+            <td class="col-quill"><strong>$79</strong></td>
+            <td><span class="cmp-no">—</span></td>
+            <td>$250</td>
+            <td><span class="cmp-no">—</span></td>
+            <td>$149</td>
+          </tr>
+          <tr>
+            <td>Monthly price</td>
+            <td class="col-quill"><strong>$12</strong></td>
+            <td>$15</td>
+            <td>$8.49</td>
+            <td>TBD</td>
+            <td>$9.90</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <p class="cmp-ts">Updated May 2026</p>
+    <p class="cmp-caveat">Comparison reflects publicly available information at time of publish. Each product has strengths — we link to their sites so you can compare directly.</p>
   </div>
 </section>
 
@@ -854,28 +1105,29 @@
 <section class="s" id="pricing" style="background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elev) 100%); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
   <div class="col">
     <div class="sec-label">Pricing</div>
-    <h2 class="sec-title">Two simple plans. <em>You pick.</em></h2>
-    <p class="sec-sub">Bring your own AI keys and pay once. Or let us handle everything for ten bucks a month.</p>
+    <h2 class="sec-title">Three ways to Quill. <em>You pick.</em></h2>
+    <p class="sec-sub">Start free, go unlimited, or bring your own keys. Every plan works on Mac and iPhone.</p>
 
-    <div class="price-grid">
+    <div class="price-grid three-tier">
       <div class="price-card">
         <div class="price-head">
-          <span class="price-pip">One-time</span>
-          <h3>Bring Your Own Keys</h3>
-          <p class="price-desc">Pay once, use forever. Plug in your own Claude or OpenAI key — Quill never touches your bill.</p>
+          <span class="price-pip">Free</span>
+          <h3>Free</h3>
+          <p class="price-desc">Get started with the core voice loop on Mac and iPhone.</p>
         </div>
         <div class="price-amount">
-          <span class="price-num">$50</span>
-          <span class="price-per">once · forever</span>
+          <span class="price-num">$0</span>
+          <span class="price-per">forever</span>
         </div>
         <ul class="price-feats">
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited Dictate, Edit, Act</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Use your own Claude / OpenAI key</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>On-device transcription option</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>All future v2.x updates included</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Dictate anywhere (5,000 words / week)</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Edit by voice (50 transforms / week)</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Act on Reminders + Calendar only</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>On-device transcription</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Mac + iOS</li>
         </ul>
-        <a href="#" class="btn btn-secondary price-cta">Buy once — $50</a>
-        <div class="price-foot">Best for power users with API access.</div>
+        <a href="#" class="btn btn-secondary price-cta">Download free</a>
+        <div class="price-foot">No credit card. Upgrade anytime.</div>
       </div>
 
       <div class="price-card featured">
@@ -883,20 +1135,43 @@
         <div class="price-head">
           <span class="price-pip">Most popular</span>
           <h3>Quill Pro</h3>
-          <p class="price-desc">No keys, no limits, no fuss. Quill handles the AI bill — you just talk.</p>
+          <p class="price-desc">Unlimited everything, across both your devices. One subscription, no keys to manage.</p>
         </div>
         <div class="price-amount">
-          <span class="price-num">$10</span>
-          <span class="price-per">/ month</span>
+          <span class="price-num">$12</span>
+          <span class="price-per">/ month or $96 / year <span class="price-save">($8 / mo)</span></span>
         </div>
         <ul class="price-feats">
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited LLM use, no key required</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited Agentic Actions</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited Dictate, Edit, and Act</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>All 12+ Act integrations</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Multi-step flows</li>
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Premium voice models &amp; faster polish</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Priority support &amp; early access features</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Mac + iOS, one account</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Priority support &amp; early access</li>
         </ul>
-        <a href="#" class="btn btn-primary price-cta">Start free trial</a>
+        <a href="#" class="btn btn-primary price-cta">Start 7-day free trial</a>
         <div class="price-foot">7-day free trial · Cancel anytime</div>
+      </div>
+
+      <div class="price-card">
+        <div class="price-head">
+          <span class="price-pip">One-time</span>
+          <h3>Bring Your Own Keys</h3>
+          <p class="price-desc">Pay once, use forever on Mac and iPhone. Plug in your own Claude or OpenAI key — Quill never touches your bill.</p>
+        </div>
+        <div class="price-amount">
+          <span class="price-num">$79</span>
+          <span class="price-per">once · forever</span>
+        </div>
+        <ul class="price-feats">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited Dictate, Edit, Act</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Use your own Claude / OpenAI key</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>On-device transcription option</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Mac + iOS, same license</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>All future v2.x updates included</li>
+        </ul>
+        <a href="#" class="btn btn-secondary price-cta">Buy once — $79</a>
+        <div class="price-foot">Best for power users with API access.</div>
       </div>
     </div>
   </div>
@@ -906,7 +1181,7 @@
 <section class="s" id="love">
   <div class="col">
     <div class="sec-label">Praise</div>
-    <h2 class="sec-title">From people who <em>write a lot.</em></h2>
+    <h2 class="sec-title">From people who <em>get things done.</em></h2>
 
     <div class="testi-grid">
       <div class="testi">
@@ -935,7 +1210,17 @@
           <div class="ava">PL</div>
           <div>
             <div class="name">Priya L.</div>
-            <div class="role">Writer & researcher</div>
+            <div class="role">Writer &amp; researcher</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi">
+        <blockquote>I dictated three emails on the subway, set two reminders, and rescheduled a meeting — without typing a word. Quill on iPhone is the killer feature nobody else has.</blockquote>
+        <div class="who">
+          <div class="ava">DM</div>
+          <div>
+            <div class="name">D.M.</div>
+            <div class="role">Freelance consultant</div>
           </div>
         </div>
       </div>
@@ -960,17 +1245,24 @@
     <h2>Stop typing. <em>Start talking.</em></h2>
     <p>Free during beta. Works offline. Your voice never leaves your device unless you ask it to.</p>
     <div class="cta-row">
-      <a href="#" class="btn btn-primary">Download for Mac</a>
-      <a href="#pricing" class="btn btn-secondary">See pricing</a>
+      <a href="#" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09z"/></svg>
+        Download for Mac
+      </a>
+      <a href="#" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09z"/></svg>
+        Download for iOS
+      </a>
+      <a href="#pricing" class="btn btn-ghost">See pricing</a>
     </div>
-    <div class="meta">macOS 14+ · Apple Silicon &amp; Intel · Free trial</div>
+    <div class="meta">macOS 14+ · iOS 17+ · Free trial</div>
   </div>
 
   <footer>
     <div>© 2026 Quill Labs · Privacy-first by default</div>
     <div class="links">
       <a href="#">Privacy</a>
-      <a href="#">Compare</a>
+      <a href="#compare">Compare</a>
       <a href="#">Changelog</a>
       <a href="#">Contact</a>
     </div>
@@ -979,16 +1271,103 @@
 
 <script>
   (function () {
+    /* Video mute toggle */
     var btn = document.getElementById('videoMute');
-    if (!btn) return;
-    var video = btn.previousElementSibling;
-    var unmuteIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
-    var muteIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
-    btn.addEventListener('click', function () {
-      video.muted = !video.muted;
-      btn.innerHTML = video.muted ? unmuteIcon : muteIcon;
-      if (!video.muted) video.play();
-    });
+    if (btn) {
+      var video = btn.previousElementSibling;
+      var unmuteIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+      var muteIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+      btn.addEventListener('click', function () {
+        video.muted = !video.muted;
+        btn.innerHTML = video.muted ? unmuteIcon : muteIcon;
+        if (!video.muted) video.play();
+      });
+    }
+
+    /* Device toggle (Mac / iPhone HUD) */
+    var toggle = document.querySelector('[data-device-toggle]');
+    if (toggle) {
+      var macHud = document.querySelector('[data-hud-mac]');
+      var iphoneHud = document.querySelector('[data-hud-iphone]');
+      toggle.addEventListener('click', function (e) {
+        var btn = e.target.closest('.dt-btn');
+        if (!btn) return;
+        toggle.querySelectorAll('.dt-btn').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        var device = btn.getAttribute('data-device');
+        if (device === 'iphone') {
+          macHud.style.display = 'none';
+          iphoneHud.style.display = '';
+        } else {
+          macHud.style.display = '';
+          iphoneHud.style.display = 'none';
+        }
+      });
+    }
+
+    /* Prompt carousel */
+    var prompts = [
+      { text: 'Remind me to call Mom Friday at 3', app: 'Reminders', detail: 'Call Mom · Fri 3:00 PM', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' },
+      { text: 'Text Maya I’ll be 10 min late', app: 'Messages', detail: 'Text to Maya · "I’ll be 10 min late"', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' },
+      { text: 'Lunch with Sarah Tuesday at 1 at Estela', app: 'Apple Calendar', detail: 'Lunch with Sarah · Tue 1:00 PM · Estela', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' },
+      { text: 'Email Alex with a recap of today’s call', app: 'Mail', detail: 'Draft to Alex · Meeting recap', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 4 12 13 2 4"/></svg>' },
+      { text: 'Add oat milk and eggs to my shopping list', app: 'Reminders', detail: 'Shopping List · oat milk, eggs', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' },
+      { text: 'Reschedule my 4pm to tomorrow morning', app: 'Apple Calendar', detail: 'Moved to tomorrow · 9:00 AM', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' }
+    ];
+    var carousel = document.querySelector('[data-carousel]');
+    if (carousel) {
+      var prs = carousel.querySelectorAll('.pr');
+      var said = document.querySelector('.try-out .said');
+      var outApp = document.querySelector('.try-out .a');
+      var outDetail = document.querySelector('.try-out .b');
+      var outIcon = document.querySelector('.try-out .out .ic');
+      var currentIdx = 1;
+      var autoTimer = null;
+      var pinTimer = null;
+
+      function showPrompt(idx) {
+        currentIdx = idx;
+        prs.forEach(function (p) { p.classList.remove('active'); });
+        prs[idx].classList.add('active');
+        said.textContent = '“' + prompts[idx].text + '”';
+        outApp.textContent = prompts[idx].app;
+        outDetail.textContent = prompts[idx].detail;
+        outIcon.innerHTML = prompts[idx].icon;
+      }
+
+      function advance() { showPrompt((currentIdx + 1) % prompts.length); }
+      function startAuto() { autoTimer = setInterval(advance, 3500); }
+      function stopAuto() { clearInterval(autoTimer); }
+
+      prs.forEach(function (pr, i) {
+        pr.addEventListener('click', function () {
+          stopAuto(); clearTimeout(pinTimer);
+          showPrompt(i);
+          pinTimer = setTimeout(startAuto, 8000);
+        });
+      });
+
+      var trySection = document.getElementById('try');
+      if (trySection && 'IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries[0].isIntersecting ? startAuto() : stopAuto();
+        }, { threshold: 0.3 });
+        obs.observe(trySection);
+      } else {
+        startAuto();
+      }
+    }
+
+    /* Scroll reveal for Loop section */
+    var trio = document.querySelector('.trio');
+    if (trio && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      new IntersectionObserver(function (entries, observer) {
+        if (entries[0].isIntersecting) {
+          trio.classList.add('in-view');
+          observer.disconnect();
+        }
+      }, { threshold: 0.2 }).observe(trio);
+    }
   })();
 </script>
 
