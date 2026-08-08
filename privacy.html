@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Privacy Policy — Quill</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="How Quill handles your voice, your text, and your connected accounts — including every case where data leaves your device.">
+<meta name="theme-color" content="#8663e6">
+<meta name="robots" content="index, follow">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/quill-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css">
+
+<!-- Same pre-paint theme resolution as index.html — without it, arriving here
+     from a dark page would flash white. -->
+<script>
+  (function () {
+    try {
+      var pref = localStorage.getItem('quill-theme') || 'auto';
+      var dark = pref === 'dark' ||
+        (pref === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      document.documentElement.dataset.themePref = pref;
+    } catch (e) {
+      document.documentElement.dataset.theme = 'light';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<main class="doc">
+  <div class="doc-top">
+    <a class="doc-back" href="/">← Back to heyquill.ai</a>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Colour theme">
+      <span data-theme-icon aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <h1>Privacy Policy</h1>
+  <p class="doc-meta">Last updated 8 August 2026 · Applies to Quill for macOS and Quill for iOS</p>
+
+  <p class="lede">
+    Quill is a dictation and voice-agent app that runs on your own device. Speech recognition
+    happens locally and your audio is never uploaded. Some optional features do send text to
+    third parties — this page lists every one of them, what gets sent, and how to turn it off.
+  </p>
+
+  <h2>Who we are</h2>
+  <p>
+    Quill is built and operated by Joe Vasquez ("we", "us"). You can reach us at
+    <a href="mailto:joe@joevasquez.com">joe@joevasquez.com</a> with any question about this
+    policy or a request about your data.
+  </p>
+
+  <h2>The short version</h2>
+  <ul>
+    <li><strong>Your audio never leaves your device.</strong> Transcription runs locally on the Neural Engine. There is no upload step and no server involved.</li>
+    <li><strong>We do not sell or share your data,</strong> and there is no advertising, profiling, or third-party tracking in either app.</li>
+    <li><strong>Everything that leaves your device is optional</strong> and tied to a feature you switched on: AI clean-up, connected apps, cloud sync, and crash reporting.</li>
+    <li><strong>You can use Quill entirely offline</strong> and never send us anything.</li>
+  </ul>
+
+  <h2>What stays on your device</h2>
+  <ul>
+    <li><strong>Audio recordings.</strong> Captured to a local file, transcribed on-device, and stored in your local history under your user Library folder. Never transmitted.</li>
+    <li><strong>Speech recognition.</strong> Parakeet TDT and Whisper run through Core ML on your hardware. Model files are downloaded once from Hugging Face; your speech is not sent anywhere to be recognised.</li>
+    <li><strong>Transcript history, notes and settings.</strong> Stored locally. On macOS, under <code>~/Library/Application Support/com.joevasquez.Quill/</code>.</li>
+    <li><strong>API keys and access tokens.</strong> Stored in the system Keychain with device-only accessibility — they are not included in iCloud Keychain sync and never leave your device except to authenticate directly with the service they belong to.</li>
+    <li><strong>Agent memory.</strong> The people, projects and preferences Quill learns are stored locally. On Macs that support Apple Intelligence, the extraction itself also runs on-device via Apple's Foundation Models, so the transcript is never sent out for that step.</li>
+  </ul>
+
+  <h2>What leaves your device, and only if you enable it</h2>
+
+  <h3>1. AI enhancement, editing and action planning</h3>
+  <p>
+    If you turn on AI clean-up, use Edit mode, or use Act mode, the <strong>text</strong> involved
+    (your transcript, any text you highlighted, and the names of the apps you've connected) is sent
+    to a large language model to be processed. Audio is never sent — only text.
+  </p>
+  <ul>
+    <li><strong>With your own API key:</strong> the request goes directly from your device to Anthropic or OpenAI under your own account, governed by their privacy policies. We never see it.</li>
+    <li><strong>On Quill Pro:</strong> the request goes to our proxy (a Cloudflare Worker) which forwards it to Anthropic using our key. The proxy checks that you're entitled to Pro and enforces a daily cap. We do not store the contents of these requests.</li>
+    <li><strong>On Apple Intelligence hardware:</strong> some steps — memory extraction, note clean-up, note titles — run on-device and skip this path entirely.</li>
+  </ul>
+  <p>Turn it off by setting AI mode to Off and not using Edit or Act.</p>
+
+  <h3>2. Connected apps</h3>
+  <p>
+    When you connect an app, Quill talks to it directly from your device using credentials you
+    provide. Only the content of the specific action is sent — the reminder text, the draft email,
+    the calendar event.
+  </p>
+  <table>
+    <thead>
+      <tr><th>Service</th><th>How it connects</th><th>What is sent</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Apple Reminders, Apple Calendar</td><td>EventKit, on-device</td><td>Nothing leaves your device</td></tr>
+      <tr><td>Gmail, Google Calendar</td><td>Google OAuth (PKCE)</td><td>The draft or event you confirmed</td></tr>
+      <tr><td>Todoist</td><td>API token you paste</td><td>The task you confirmed</td></tr>
+      <tr><td>MCP servers (Notion, Linear, GitHub, Dex, custom)</td><td>OAuth or a token you supply</td><td>The tool call you confirmed, and its arguments</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Quill asks you to confirm before any action runs. Disconnect a service at any time in
+    Settings → Connections; its credentials are deleted from your Keychain when you do.
+  </p>
+
+  <h3>3. Cloud Sync</h3>
+  <p>
+    Off by default. When you enable it and connect a Google account, your notes, note photos and
+    transcripts are stored in Google Cloud (Firestore and Cloud Storage) in a project we operate,
+    so they can move between your iPhone and your Mac. Data is scoped to your account. Deleting a
+    note removes it — and its photos — across your devices. Turn Cloud Sync off to stop all
+    uploads; contact us to have stored data deleted.
+  </p>
+
+  <h3>4. Crash and error reporting</h3>
+  <p>
+    Off by default. If you turn it on, crash reports and a small number of handled errors are sent
+    to Sentry to help us fix bugs. We deliberately do not attach response bodies or transcript
+    content to these reports. Both apps ship an Apple privacy manifest declaring crash data as
+    not linked to you and not used for tracking.
+  </p>
+
+  <h3>5. Usage counts</h3>
+  <p>
+    If you have connected Google, Quill may record aggregate counters — how many dictations, edits
+    and actions you've run, and a word count — so we can understand whether the app is being used.
+    <strong>No transcript content is included.</strong>
+  </p>
+
+  <h2>What we never do</h2>
+  <ul>
+    <li>We do not sell, rent or share your personal information with data brokers or advertisers.</li>
+    <li>We do not use your voice, transcripts or notes to train any machine-learning model — ours or anyone else's.</li>
+    <li>We do not include analytics SDKs, advertising SDKs, or cross-app tracking. Both apps declare <code>NSPrivacyTracking = false</code> and list no tracking domains.</li>
+    <li>We do not require an account to use the app.</li>
+  </ul>
+
+  <h2>Permissions we ask for, and why</h2>
+  <ul>
+    <li><strong>Microphone</strong> — to record what you dictate. Required.</li>
+    <li><strong>Accessibility (macOS)</strong> — to read the text you highlighted and to paste results into the app you're using. Without it, Edit mode can't work.</li>
+    <li><strong>Speech Recognition (macOS)</strong> — for the live preview text shown while you speak. Optional; denying it only removes the preview.</li>
+    <li><strong>Reminders and Calendar</strong> — only if you use those integrations.</li>
+    <li><strong>Photos (iOS)</strong> — only if you attach a photo to a note.</li>
+  </ul>
+
+  <h2>Retention</h2>
+  <p>
+    Local history and notes stay on your device until you delete them or until history exceeds the
+    limit you've set in Settings. Cloud-synced content persists until you delete the note or ask us
+    to remove your data. Crash reports are retained by Sentry for up to 90 days.
+  </p>
+
+  <h2>Your rights</h2>
+  <p>
+    Most of your data never reaches us, so the fastest way to delete it is to delete it in the app.
+    For anything stored in our Google Cloud project (cloud-synced notes, usage counters), you can
+    ask us to export or delete it by emailing
+    <a href="mailto:joe@joevasquez.com">joe@joevasquez.com</a>. We'll respond within 30 days.
+    Depending on where you live, you may have rights under the GDPR or the CCPA to access, correct,
+    delete, or port your data, and to object to processing — we honour these requests regardless of
+    where you live. We have never sold personal information.
+  </p>
+
+  <h2>Children</h2>
+  <p>
+    Quill is not directed at children under 13, and we do not knowingly collect their personal
+    information.
+  </p>
+
+  <h2>International transfers</h2>
+  <p>
+    Our infrastructure runs in the United States. If you use Cloud Sync, Pro AI, or crash
+    reporting from outside the US, that data is processed in the US.
+  </p>
+
+  <h2>Changes</h2>
+  <p>
+    If we change this policy in a way that materially affects how your data is handled, we'll
+    update the date at the top and note the change in the app's release notes.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions, deletion requests, or anything that looks wrong on this page:
+    <a href="mailto:joe@joevasquez.com">joe@joevasquez.com</a>.
+  </p>
+</main>
+
+<script type="module" src="/app.js"></script>
+</body>
+</html>
